@@ -14,11 +14,73 @@
             font-family: 'Inconsolata', monospace, sans-serif;
             background-color: #f0f2f5;
             display: flex;
-            justify-content: center;
-            align-items: center; /* Changed from flex-start */
+            flex-direction: column;
+            align-items: center;
             min-height: 100vh;
             padding: 20px;
             color: #333;
+        }
+
+        /* Page Header */
+        .page-header {
+            width: 100%;
+            background: linear-gradient(135deg, #800020, #a52a2a);
+            color: white;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(128, 0, 32, 0.2);
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .logo-small {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .header-content h1 {
+            margin: 0;
+            font-size: 1.8em;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 2px;
+        }
+
+        .header-content p {
+            margin: 5px 0 0;
+            opacity: 0.9;
+            font-size: 0.9em;
         }
 
         .receipt-container {
@@ -179,21 +241,29 @@
         .print-btn {
             display: block;
             width: 100%;
-            margin-top: 25px; /* Adjusted margin */
+            margin-top: 25px;
             padding: 12px;
-            background-color: #800020;
+            background: linear-gradient(135deg, #800020, #a52a2a);
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 16px;
             font-weight: 700;
-            font-family: 'Inconsolata', monospace;
-            transition: background-color 0.2s;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(128, 0, 32, 0.25);
         }
 
         .print-btn:hover {
-            background-color: #A52A2A;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(128, 0, 32, 0.35);
+        }
+
+        .print-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(128, 0, 32, 0.15);
         }
 
         @media print {
@@ -217,10 +287,10 @@
 <body>
     <div class="receipt-container">
         <div class="header">
-            <h1>THE GOURMET KITCHEN</h1>
+            <h1>PRISTINE DINING</h1>
             <p>123 Culinary Lane, Foodie City, CA 90210</p>
-            <p>www.thegourmetkitchen.com</p>
-            <p>(123) 456-7890</p>
+            <p>www.pristinedining.com</p>
+            <p>(555) 123-4567</p>
         </div>
 
         <div class="bill-details">

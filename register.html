@@ -12,36 +12,137 @@
     <link rel="stylesheet" href="styles/register.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Register</h1>
-        <form>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
+    <div class="register-wrapper">
+        <div class="register-container">
+            <!-- Logo & Branding Section -->
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <h1 class="restaurant-name">PRISTINE DINING</h1>
+                <p class="restaurant-tagline">Create Your Account</p>
+            </div>
 
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
+            <!-- Register Form -->
+            <form class="register-form" id="registerForm">
+                <!-- Row 1: Username & Password -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="username" class="form-label">
+                            <i class="fas fa-user"></i>
+                            <span>Username</span>
+                        </label>
+                        <div class="input-wrapper">
+                            <input type="text" id="username" name="username" class="form-input" placeholder="Choose a username" required>
+                            <span class="input-focus-bg"></span>
+                        </div>
+                    </div>
 
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
+                    <div class="form-group">
+                        <label for="password" class="form-label">
+                            <i class="fas fa-lock"></i>
+                            <span>Password</span>
+                        </label>
+                        <div class="input-wrapper">
+                            <input type="password" id="password" name="password" class="form-input" placeholder="Create password" required>
+                            <span class="input-focus-bg"></span>
+                        </div>
+                    </div>
+                </div>
 
-            <label for="phone">Phone:</label>
-            <input type="tel" id="phone" name="phone" required>
+                <!-- Row 2: Full Name & Phone -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name" class="form-label">
+                            <i class="fas fa-id-card"></i>
+                            <span>Full Name</span>
+                        </label>
+                        <div class="input-wrapper">
+                            <input type="text" id="name" name="name" class="form-input" placeholder="Your full name" required>
+                            <span class="input-focus-bg"></span>
+                        </div>
+                    </div>
 
-            <label for="address">Address:</label>
-            <input type="text" id="address" name="address" required>
+                    <div class="form-group">
+                        <label for="phone" class="form-label">
+                            <i class="fas fa-phone"></i>
+                            <span>Phone</span>
+                        </label>
+                        <div class="input-wrapper">
+                            <input type="tel" id="phone" name="phone" class="form-input" placeholder="Your phone number" required>
+                            <span class="input-focus-bg"></span>
+                        </div>
+                    </div>
+                </div>
 
-            <label for="city">City:</label>
-            <input type="text" id="city" name="city" required>
+                <!-- Row 3: Address & City -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="address" class="form-label">
+                            <i class="fas fa-home"></i>
+                            <span>Address</span>
+                        </label>
+                        <div class="input-wrapper">
+                            <input type="text" id="address" name="address" class="form-input" placeholder="Street address" required>
+                            <span class="input-focus-bg"></span>
+                        </div>
+                    </div>
 
-            <label for="state">State:</label>
-            <input type="text" id="state" name="state" required>
+                    <div class="form-group">
+                        <label for="city" class="form-label">
+                            <i class="fas fa-building"></i>
+                            <span>City</span>
+                        </label>
+                        <div class="input-wrapper">
+                            <input type="text" id="city" name="city" class="form-input" placeholder="Your city" required>
+                            <span class="input-focus-bg"></span>
+                        </div>
+                    </div>
+                </div>
 
-            <label for="zip_code">Zip Code:</label>
-            <input type="text" id="zip_code" name="zip_code" required>
+                <!-- Row 4: State & Zip -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="state" class="form-label">
+                            <i class="fas fa-map"></i>
+                            <span>State</span>
+                        </label>
+                        <div class="input-wrapper">
+                            <input type="text" id="state" name="state" class="form-input" placeholder="State/Province" required>
+                            <span class="input-focus-bg"></span>
+                        </div>
+                    </div>
 
-            <button type="submit">Register</button>
-        </form>
-        <p>Already have an account? <a href="login.html">Login here</a></p>
+                    <div class="form-group">
+                        <label for="zip_code" class="form-label">
+                            <i class="fas fa-envelope"></i>
+                            <span>Zip Code</span>
+                        </label>
+                        <div class="input-wrapper">
+                            <input type="text" id="zip_code" name="zip_code" class="form-input" placeholder="Postal code" required>
+                            <span class="input-focus-bg"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="register-button">
+                    <span>Create Account</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+
+            <!-- Footer Link -->
+            <div class="register-footer">
+                <p>Already have an account? <a href="login.html">Login here</a></p>
+            </div>
+        </div>
+
+        <!-- Decorative Side Element -->
+        <div class="decoration">
+            <div class="deco-circle deco-1"></div>
+            <div class="deco-circle deco-2"></div>
+            <div class="deco-line"></div>
+        </div>
     </div>
 
     <!-- Fixed Navigation Popup -->

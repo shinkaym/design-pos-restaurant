@@ -430,13 +430,30 @@
             }
         }
 
+        /* Animations */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
     </style>
 </head>
 <body>
     <div class="bill-container">
         <div class="bill-header">
             <div class="restaurant-info">
-                <h1>THE GOURMET KITCHEN</h1>
+                <h1>PRISTINE DINING</h1>
                 <p>123 Culinary Lane, Foodie City, CA 90210</p>
             </div>
             <div class="bill-meta">

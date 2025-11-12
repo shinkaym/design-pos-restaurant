@@ -1,5 +1,73 @@
 /* Order Page POS-Style Specific Styles */
 
+/* Main Wrapper */
+.main-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Branded Header */
+.branded-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 35px;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(128, 0, 32, 0.1), rgba(255, 215, 0, 0.08));
+    border-radius: 15px;
+    border-left: 4px solid var(--primary-color);
+    animation: slideInLeft 0.6s ease-out;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.brand-logo {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary-color), #a52a2a);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 28px;
+    flex-shrink: 0;
+    box-shadow: 0 6px 20px rgba(128, 0, 32, 0.25);
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.brand-info h1 {
+    margin: 0;
+    font-size: 1.8em;
+    color: var(--primary-color);
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 1.5px;
+}
+
+.brand-info p {
+    margin: 5px 0 0;
+    color: #888;
+    font-size: 0.9em;
+}
+
 /* Header Section */
 .header-section {
     display: flex;
@@ -9,14 +77,15 @@
     gap: 30px;
 }
 
-.title-group h1 {
+.title-group h2 {
     margin: 0 0 8px 0;
     display: flex;
     align-items: center;
     gap: 12px;
+    color: var(--primary-color);
 }
 
-.title-group h1 i {
+.title-group h2 i {
     font-size: 1.3em;
 }
 
@@ -242,6 +311,24 @@
     cursor: pointer;
     display: flex;
     flex-direction: column;
+    animation: fadeInCard 0.5s ease-out backwards;
+}
+
+.order-card:nth-child(1) { animation-delay: 0.1s; }
+.order-card:nth-child(2) { animation-delay: 0.15s; }
+.order-card:nth-child(3) { animation-delay: 0.2s; }
+.order-card:nth-child(4) { animation-delay: 0.25s; }
+.order-card:nth-child(5) { animation-delay: 0.3s; }
+
+@keyframes fadeInCard {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .order-card:hover {
@@ -330,11 +417,11 @@
 }
 
 .btn-complete {
-    background: #FFA500;
+    background: linear-gradient(135deg, #FFA500, #FF8C00);
     color: white;
     border: none;
-    padding: 6px 12px;
-    border-radius: 4px;
+    padding: 8px 14px;
+    border-radius: 6px;
     cursor: pointer;
     font-weight: 600;
     font-size: 0.8em;
@@ -343,15 +430,17 @@
     align-items: center;
     justify-content: center;
     gap: 4px;
+    box-shadow: 0 3px 10px rgba(255, 165, 0, 0.3);
 }
 
 .btn-complete:hover {
-    background: #FF8C00;
-    transform: scale(1.05);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 165, 0, 0.4);
 }
 
 .btn-complete:active {
-    transform: scale(0.98);
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(255, 165, 0, 0.25);
 }
 
 /* Empty State */
@@ -375,7 +464,7 @@
 /* Clear Button */
 .clear-btn {
     width: 100%;
-    background: #A52A2A;
+    background: linear-gradient(135deg, var(--primary-color), #a52a2a);
     color: white;
     border: none;
     padding: 12px 20px;
@@ -387,10 +476,16 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
+    box-shadow: 0 4px 15px rgba(128, 0, 32, 0.25);
 }
 
 .clear-btn:hover {
-    background: #800000;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(128, 0, 32, 0.35);
+}
+
+.clear-btn:active {
+    transform: translateY(0);
 }
 
 /* Navigation Popup styles are in global.css */

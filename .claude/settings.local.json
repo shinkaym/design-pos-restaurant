@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(comm -12:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
