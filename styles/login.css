@@ -1,0 +1,60 @@
+/* Login Page Specific Styles */
+.container {
+    max-width: 460px;
+    margin-top: 100px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 40px;
+}
+
+form {
+    padding: 30px;
+    border: none;
+    border-radius: var(--border-radius);
+    background-color: transparent;
+    text-align: left;
+}
+
+button {
+    width: 100%;
+    margin-top: 20px;
+}
+
+p {
+    margin-top: 25px;
+    font-size: 0.95em;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+nav {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #E0E0E0;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    font-weight: 500;
+    color: var(--primary-color);
+}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Raleway:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/login.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Login</h1>
+        <form>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="phone">Phone:</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="user_id">User ID:</label>
+            <input type="text" id="user_id" name="user_id" required>
+
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="register.html">Register here</a></p>
+    </div>
+
+    <!-- Fixed Navigation Popup -->
+    <div class="nav-popup-overlay" id="navOverlay"></div>
+    <div class="nav-popup" id="navPopup">
+        <button class="nav-popup-close" onclick="closeNavPopup()">
+            <i class="fas fa-times"></i>
+        </button>
+        <h3>Test Pages</h3>
+        <nav class="nav-popup-list">
+            <a href="login.html" class="nav-popup-link active">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </a>
+            <a href="register.html" class="nav-popup-link">
+                <i class="fas fa-user-plus"></i> Register
+            </a>
+            <a href="order.html" class="nav-popup-link">
+                <i class="fas fa-receipt"></i> Orders
+            </a>
+            <a href="reservation.html" class="nav-popup-link">
+                <i class="fas fa-calendar-alt"></i> Reservations
+            </a>
+            <a href="restaurant_bill.html" class="nav-popup-link">
+                <i class="fas fa-file-invoice"></i> Bill
+            </a>
+            <a href="restaurant_reception.html" class="nav-popup-link">
+                <i class="fas fa-door-open"></i> Reception
+            </a>
+        </nav>
+    </div>
+
+    <button class="nav-popup-btn" onclick="toggleNavPopup()">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        function toggleNavPopup() {
+            const popup = document.getElementById('navPopup');
+            const overlay = document.getElementById('navOverlay');
+            popup.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        function closeNavPopup() {
+            const popup = document.getElementById('navPopup');
+            const overlay = document.getElementById('navOverlay');
+            popup.classList.remove('active');
+            overlay.classList.remove('active');
+        }
+
+        document.getElementById('navOverlay').addEventListener('click', closeNavPopup);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeNavPopup();
+        });
+    </script>
+</body>
+</html>

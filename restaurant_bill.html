@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Receipt</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Inconsolata', monospace, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Changed from flex-start */
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .receipt-container {
+            width: 320px;
+            background-color: #fff;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        .header {
+            text-align: center;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #999;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        .header p {
+            margin: 4px 0;
+            font-size: 13px;
+        }
+
+        .bill-details {
+            padding: 15px 0;
+            border-bottom: 1px dashed #999;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .items {
+            padding: 15px 0;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .items-header, .item-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+        }
+
+        .items-header {
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .item-row {
+            margin-bottom: 8px;
+        }
+
+        .item-name {
+            flex-grow: 1;
+            padding-right: 10px;
+        }
+
+        .item-qty {
+            width: 40px;
+            text-align: center;
+        }
+
+        .item-price {
+            width: 70px;
+            text-align: right;
+        }
+
+        .totals {
+            padding: 15px 0;
+            font-size: 14px;
+        }
+
+        .total-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .total-line .label {
+            font-weight: 400;
+        }
+
+        .total-line .amount {
+            font-weight: 700;
+        }
+
+        .grand-total {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #ccc;
+        }
+
+        .grand-total .label {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .grand-total .amount {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .tip-suggestion {
+            padding: 15px 0;
+            border-bottom: 1px dashed #999;
+        }
+
+        .tip-suggestion h3 {
+            text-align: center;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .tip-options {
+            display: flex;
+            justify-content: space-around;
+            font-size: 13px;
+        }
+
+        .tip-option {
+            text-align: center;
+        }
+
+        .footer {
+            text-align: center;
+            padding-top: 15px;
+        }
+
+        .footer .thank-you {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .footer .qr-code {
+            margin: 10px 0;
+        }
+
+        .footer .qr-code img {
+            width: 80px;
+            height: 80px;
+        }
+
+        .footer p {
+            font-size: 12px;
+            margin: 4px 0;
+        }
+
+        .print-btn {
+            display: block;
+            width: 100%;
+            margin-top: 25px; /* Adjusted margin */
+            padding: 12px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 700;
+            font-family: 'Inconsolata', monospace;
+            transition: background-color 0.2s;
+        }
+
+        .print-btn:hover {
+            background-color: #555;
+        }
+
+        @media print {
+            body {
+                background-color: #fff;
+                padding: 0;
+            }
+            .receipt-container {
+                box-shadow: none;
+                border-radius: 0;
+                width: 100%;
+                padding: 0;
+            }
+            .print-btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="receipt-container">
+        <div class="header">
+            <h1>THE GOURMET KITCHEN</h1>
+            <p>123 Culinary Lane, Foodie City, CA 90210</p>
+            <p>www.thegourmetkitchen.com</p>
+            <p>(123) 456-7890</p>
+        </div>
+
+        <div class="bill-details">
+            <div class="detail-row">
+                <span>Date: 11/15/2025</span>
+                <span>Time: 7:45 PM</span>
+            </div>
+            <div class="detail-row">
+                <span>Table: #5</span>
+                <span>Server: Jane D.</span>
+            </div>
+            <div class="detail-row">
+                <span>Order #: INV-00145</span>
+            </div>
+        </div>
+
+        <div class="items">
+            <div class="items-header">
+                <span class="item-name">ITEM</span>
+                <span class="item-qty">QTY</span>
+                <span class="item-price">PRICE</span>
+            </div>
+            <div class="item-row">
+                <span class="item-name">Beef Noodle Soup</span>
+                <span class="item-qty">2</span>
+                <span class="item-price">$17.00</span>
+            </div>
+            <div class="item-row">
+                <span class="item-name">Spring Rolls (4pcs)</span>
+                <span class="item-qty">1</span>
+                <span class="item-price">$5.00</span>
+            </div>
+            <div class="item-row">
+                <span class="item-name">Lemongrass Chicken</span>
+                <span class="item-qty">1</span>
+                <span class="item-price">$12.00</span>
+            </div>
+            <div class="item-row">
+                <span class="item-name">Garlic Shrimp Rice</span>
+                <span class="item-qty">1</span>
+                <span class="item-price">$10.00</span>
+            </div>
+            <div class="item-row">
+                <span class="item-name">Tom Yum Soup</span>
+                <span class="item-qty">1</span>
+                <span class="item-price">$11.00</span>
+            </div>
+            <div class="item-row">
+                <span class="item-name">Iced Tea</span>
+                <span class="item-qty">2</span>
+                <span class="item-price">$5.00</span>
+            </div>
+        </div>
+
+        <div class="totals">
+            <div class="total-line">
+                <span class="label">Subtotal</span>
+                <span class="amount">$60.00</span>
+            </div>
+            <div class="total-line">
+                <span class="label">Sales Tax (8.25%)</span>
+                <span class="amount">$4.95</span>
+            </div>
+            <div class="total-line grand-total">
+                <span class="label">TOTAL</span>
+                <span class="amount">$64.95</span>
+            </div>
+        </div>
+
+        <div class="tip-suggestion">
+            <h3>Suggested Tip</h3>
+            <div class="tip-options">
+                <div class="tip-option">
+                    <strong>18%</strong><br>$11.69
+                </div>
+                <div class="tip-option">
+                    <strong>20%</strong><br>$12.99
+                </div>
+                <div class="tip-option">
+                    <strong>25%</strong><br>$16.24
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="thank-you">Thank You!</div>
+            <div class="qr-code">
+                <!-- Placeholder for QR Code -->
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=https://www.thegourmetkitchen.com" alt="QR Code">
+            </div>
+            <p>Your feedback is valuable to us!</p>
+            <p>Follow us @thegourmetkitchen</p>
+        </div>
+
+        <button class="print-btn" onclick="window.print()">Print Receipt</button>
+    </div>
+
+    <!-- Fixed Navigation Popup -->
+    <div class="nav-popup-overlay" id="navOverlay"></div>
+    <div class="nav-popup" id="navPopup">
+        <button class="nav-popup-close" onclick="closeNavPopup()">
+            <i class="fas fa-times"></i>
+        </button>
+        <h3>Test Pages</h3>
+        <nav class="nav-popup-list">
+            <a href="login.html" class="nav-popup-link">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </a>
+            <a href="register.html" class="nav-popup-link">
+                <i class="fas fa-user-plus"></i> Register
+            </a>
+            <a href="order.html" class="nav-popup-link">
+                <i class="fas fa-receipt"></i> Orders
+            </a>
+            <a href="reservation.html" class="nav-popup-link">
+                <i class="fas fa-calendar-alt"></i> Reservations
+            </a>
+            <a href="restaurant_bill.html" class="nav-popup-link active">
+                <i class="fas fa-file-invoice"></i> Bill
+            </a>
+            <a href="restaurant_reception.html" class="nav-popup-link">
+                <i class="fas fa-door-open"></i> Reception
+            </a>
+        </nav>
+    </div>
+
+    <button class="nav-popup-btn" onclick="toggleNavPopup()">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/global.css">
+    <script>
+        function toggleNavPopup() {
+            const popup = document.getElementById('navPopup');
+            const overlay = document.getElementById('navOverlay');
+            popup.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        function closeNavPopup() {
+            const popup = document.getElementById('navPopup');
+            const overlay = document.getElementById('navOverlay');
+            popup.classList.remove('active');
+            overlay.classList.remove('active');
+        }
+
+        document.getElementById('navOverlay').addEventListener('click', closeNavPopup);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeNavPopup();
+        });
+    </script>
+
+</body>
+</html>

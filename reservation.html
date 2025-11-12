@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation Management - POS System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/reservation.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header-section">
+            <div class="title-group">
+                <h1><i class="fas fa-calendar-alt"></i> Reservations</h1>
+                <p class="subtitle">Manage and track all guest reservations</p>
+            </div>
+            <div class="stats-group">
+                <div class="stat-card">
+                    <span class="stat-number" id="total-reservations">0</span>
+                    <span class="stat-label">Total</span>
+                </div>
+                <div class="stat-card pending-stat">
+                    <span class="stat-number" id="pending-reservations">0</span>
+                    <span class="stat-label">Pending</span>
+                </div>
+                <div class="stat-card completed-stat">
+                    <span class="stat-number" id="completed-reservations-count">0</span>
+                    <span class="stat-label">Completed</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" id="search-input" placeholder="Search by Reservation ID or Guest Name...">
+            <button class="clear-search-btn" onclick="clearSearch()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="main-layout">
+            <!-- Pending Reservations Section -->
+            <div class="reservations-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-hourglass-half"></i> Pending Reservations</h2>
+                    <span class="badge-count" id="pending-badge">0</span>
+                </div>
+                <div id="pending-reservations-container" class="cards-grid">
+                    <!-- Pending reservations will be displayed as cards here -->
+                </div>
+            </div>
+
+            <!-- Completed Reservations Section -->
+            <div class="reservations-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-check-circle"></i> Completed Reservations</h2>
+                    <span class="badge-count completed-badge" id="completed-badge">0</span>
+                </div>
+                <div id="completed-reservations-container" class="cards-grid">
+                    <!-- Completed reservations will be displayed as cards here -->
+                </div>
+                <button onclick="clearReservations()" class="clear-btn" style="margin-top: 20px;">
+                    <i class="fas fa-trash"></i> Clear Completed
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Fixed Navigation Popup -->
+    <div class="nav-popup-overlay" id="navOverlay"></div>
+    <div class="nav-popup" id="navPopup">
+        <button class="nav-popup-close" onclick="closeNavPopup()">
+            <i class="fas fa-times"></i>
+        </button>
+        <h3>Test Pages</h3>
+        <nav class="nav-popup-list">
+            <a href="login.html" class="nav-popup-link">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </a>
+            <a href="register.html" class="nav-popup-link">
+                <i class="fas fa-user-plus"></i> Register
+            </a>
+            <a href="order.html" class="nav-popup-link">
+                <i class="fas fa-receipt"></i> Orders
+            </a>
+            <a href="reservation.html" class="nav-popup-link active">
+                <i class="fas fa-calendar-alt"></i> Reservations
+            </a>
+            <a href="restaurant_bill.html" class="nav-popup-link">
+                <i class="fas fa-file-invoice"></i> Bill
+            </a>
+            <a href="restaurant_reception.html" class="nav-popup-link">
+                <i class="fas fa-door-open"></i> Reception
+            </a>
+        </nav>
+    </div>
+
+    <button class="nav-popup-btn" onclick="toggleNavPopup()">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <script>
+        // Navigation Popup Functions
+        function toggleNavPopup() {
+            const popup = document.getElementById('navPopup');
+            const overlay = document.getElementById('navOverlay');
+            popup.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        function closeNavPopup() {
+            const popup = document.getElementById('navPopup');
+            const overlay = document.getElementById('navOverlay');
+            popup.classList.remove('active');
+            overlay.classList.remove('active');
+        }
+
+        // Close popup when clicking overlay
+        document.getElementById('navOverlay').addEventListener('click', closeNavPopup);
+
+        // Close popup when pressing Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeNavPopup();
+        });
+
+        // Reservations Management Functions
+        const totalReservationsSpan = document.getElementById('total-reservations');
+        const pendingReservationsSpan = document.getElementById('pending-reservations');
+        const completedReservationsCountSpan = document.getElementById('completed-reservations-count');
+        const pendingReservationsContainer = document.getElementById('pending-reservations-container');
+        const completedReservationsContainer = document.getElementById('completed-reservations-container');
+        const pendingBadge = document.getElementById('pending-badge');
+        const completedBadge = document.getElementById('completed-badge');
+        const searchInput = document.getElementById('search-input');
+        const clearSearchBtn = document.querySelector('.clear-search-btn');
+
+        let reservations = [
+            { id: '#R001', guest: 'John Doe', guests: 2, time: '7:00 PM', date: 'Today', table: '5', status: 'Pending' },
+            { id: '#R002', guest: 'Jane Smith', guests: 4, time: '8:00 PM', date: 'Today', table: '12', status: 'Pending' },
+            { id: '#R003', guest: 'Alice Wonderland', guests: 1, time: '6:00 PM', date: 'Today', table: '2', status: 'Pending' },
+            { id: '#R004', guest: 'Bob Johnson', guests: 3, time: '7:30 PM', date: 'Today', table: '8', status: 'Pending' },
+            { id: '#R005', guest: 'Emily Chen', guests: 2, time: '8:30 PM', date: 'Today', table: '10', status: 'Pending' },
+            { id: '#R006', guest: 'Michael Brown', guests: 5, time: '6:30 PM', date: 'Today', table: '15', status: 'Pending' },
+            { id: '#R007', guest: 'Sarah Davis', guests: 2, time: '9:00 PM', date: 'Today', table: '7', status: 'Pending' },
+            { id: '#R008', guest: 'David Wilson', guests: 6, time: '7:15 PM', date: 'Today', table: '1,2', status: 'Pending' },
+            { id: '#R009', guest: 'Lisa Anderson', guests: 3, time: '8:15 PM', date: 'Today', table: '14', status: 'Pending' },
+            { id: '#R010', guest: 'James Taylor', guests: 2, time: '6:45 PM', date: 'Today', table: '4', status: 'Pending' },
+        ];
+        let completedReservations = [];
+        let filteredReservations = [...reservations];
+
+        function updateReservationCounts() {
+            const pendingCount = reservations.filter(r => r.status === 'Pending').length;
+            const completedCount = completedReservations.length;
+            const total = pendingCount + completedCount;
+
+            totalReservationsSpan.textContent = total;
+            pendingReservationsSpan.textContent = pendingCount;
+            completedReservationsCountSpan.textContent = completedCount;
+            pendingBadge.textContent = pendingCount;
+            completedBadge.textContent = completedCount;
+        }
+
+        function renderReservations(reservationsToRender = null) {
+            const displayReservations = reservationsToRender || reservations;
+            pendingReservationsContainer.innerHTML = '';
+
+            displayReservations.filter(r => r.status === 'Pending').forEach((reservation, index) => {
+                const originalIndex = reservations.findIndex(r => r.id === reservation.id);
+                const card = document.createElement('div');
+                card.classList.add('reservation-card');
+                card.innerHTML = `
+                    <div class="card-header">
+                        <span class="reservation-id">${reservation.id}</span>
+                        <span class="reservation-time"><i class="fas fa-clock"></i> ${reservation.time}</span>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="guest-name">${reservation.guest}</h3>
+                        <div class="reservation-details">
+                            <div class="detail">
+                                <i class="fas fa-users"></i>
+                                <span>${reservation.guests} ${reservation.guests === 1 ? 'guest' : 'guests'}</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-chair"></i>
+                                <span>Table ${reservation.table}</span>
+                            </div>
+                        </div>
+                        <p class="reservation-date"><i class="fas fa-calendar"></i> ${reservation.date}</p>
+                        <button onclick="completeReservation(${originalIndex})" class="btn-complete">
+                            <i class="fas fa-check"></i> Check In
+                        </button>
+                    </div>
+                `;
+                pendingReservationsContainer.appendChild(card);
+            });
+
+            // If no pending reservations, show empty state
+            if (displayReservations.filter(r => r.status === 'Pending').length === 0) {
+                pendingReservationsContainer.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i> <p>No pending reservations</p></div>';
+            }
+        }
+
+        function renderCompletedReservations(reservationsToRender = null) {
+            const displayReservations = reservationsToRender || completedReservations;
+            completedReservationsContainer.innerHTML = '';
+
+            displayReservations.filter(r => r.status === 'Completed').forEach((reservation) => {
+                const card = document.createElement('div');
+                card.classList.add('reservation-card', 'completed');
+                card.innerHTML = `
+                    <div class="card-header">
+                        <span class="reservation-id">${reservation.id}</span>
+                        <span class="status-badge"><i class="fas fa-check-circle"></i> Checked In</span>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="guest-name">${reservation.guest}</h3>
+                        <div class="reservation-details">
+                            <div class="detail">
+                                <i class="fas fa-users"></i>
+                                <span>${reservation.guests} ${reservation.guests === 1 ? 'guest' : 'guests'}</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-chair"></i>
+                                <span>Table ${reservation.table}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                completedReservationsContainer.appendChild(card);
+            });
+
+            // If no completed reservations, show empty state
+            if (displayReservations.filter(r => r.status === 'Completed').length === 0) {
+                completedReservationsContainer.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i> <p>No completed reservations</p></div>';
+            }
+        }
+
+        function clearReservations() {
+            if (confirm('Are you sure you want to clear all completed reservations?')) {
+                completedReservations = [];
+                localStorage.setItem('completedReservations', JSON.stringify(completedReservations));
+                updateReservationCounts();
+                renderCompletedReservations();
+            }
+        }
+
+        function completeReservation(index) {
+            const reservation = reservations[index];
+            reservation.status = 'Completed';
+            completedReservations.push({...reservation});
+            reservations.splice(index, 1);
+            localStorage.setItem('completedReservations', JSON.stringify(completedReservations));
+            updateReservationCounts();
+            renderReservations(filteredReservations);
+            renderCompletedReservations();
+        }
+
+        function searchReservations() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            if (searchTerm === '') {
+                filteredReservations = [...reservations];
+                clearSearchBtn.style.display = 'none';
+            } else {
+                filteredReservations = reservations.filter(reservation =>
+                    reservation.id.toLowerCase().includes(searchTerm) ||
+                    reservation.guest.toLowerCase().includes(searchTerm)
+                );
+                clearSearchBtn.style.display = 'block';
+            }
+            renderReservations(filteredReservations);
+        }
+
+        function clearSearch() {
+            searchInput.value = '';
+            filteredReservations = [...reservations];
+            clearSearchBtn.style.display = 'none';
+            renderReservations();
+        }
+
+        // Event listeners
+        searchInput.addEventListener('input', searchReservations);
+
+        // Load completed reservations from localStorage
+        const storedCompletedReservations = localStorage.getItem('completedReservations');
+        if (storedCompletedReservations) {
+            completedReservations = JSON.parse(storedCompletedReservations);
+        }
+
+        // Initial render
+        updateReservationCounts();
+        renderReservations();
+        renderCompletedReservations();
+    </script>
+</body>
+</html>

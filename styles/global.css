@@ -1,0 +1,297 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Raleway:wght@400;500&display=swap');
+
+/* Global Styles */
+:root {
+    --primary-color: #800020; /* Burgundy */
+    --secondary-color: #F5F5DC; /* Beige */
+    --accent-color: #FFD700; /* Gold */
+    --text-color: #333;
+    --background-color: #FFFFFF;
+    --container-bg: rgba(255, 255, 255, 0.95);
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --border-radius: 8px;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1974&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    width: 90%;
+    max-width: 960px;
+    margin: 40px auto;
+    background-color: var(--container-bg);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+h1 {
+    font-size: 3em;
+    margin-bottom: 0.5em;
+    text-align: center;
+}
+
+h2 {
+    font-size: 2.2em;
+    margin-bottom: 0.75em;
+}
+
+h3 {
+    font-size: 1.7em;
+    margin-bottom: 1em;
+}
+
+form {
+    margin-top: 30px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-size: 1em;
+    color: #555;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="number"] {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="tel"]:focus,
+input[type="number"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(128, 0, 32, 0.2);
+}
+
+button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #A52A2A; /* Brown */
+}
+
+.notification {
+    background-color: #F5F5DC; /* Beige */
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    padding: 15px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.1em;
+}
+
+.shopping-basket {
+    border: 1px solid #E0E0E0;
+    padding: 20px;
+    margin-top: 25px;
+    border-radius: var(--border-radius);
+    background-color: var(--secondary-color);
+}
+
+.shopping-basket h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 10px;
+}
+
+/* Fixed Navigation Popup - Shared Styles */
+.nav-popup-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(128, 0, 32, 0.3);
+    transition: all 0.3s ease;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-popup-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(128, 0, 32, 0.4);
+}
+
+.nav-popup-btn:active {
+    transform: scale(0.95);
+}
+
+/* Popup Overlay */
+.nav-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 998;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.nav-popup-overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+/* Popup Modal */
+.nav-popup {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    min-width: 250px;
+    z-index: 1000;
+    transform: scale(0.95) translateY(10px);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    border: 2px solid var(--primary-color);
+}
+
+.nav-popup.active {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.nav-popup h3 {
+    margin: 0 0 15px 0;
+    font-size: 18px;
+    color: var(--primary-color);
+    font-family: 'Playfair Display', serif;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 10px;
+}
+
+.nav-popup-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: none;
+    border: none;
+    color: #999;
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.nav-popup-close:hover {
+    color: var(--primary-color);
+}
+
+/* Popup Navigation List */
+.nav-popup-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nav-popup-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 15px;
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.2s;
+    font-weight: 500;
+    border-left: 3px solid transparent;
+}
+
+.nav-popup-link:hover {
+    background: #f0f0f0;
+    color: var(--primary-color);
+    border-left-color: var(--primary-color);
+    transform: translateX(4px);
+}
+
+.nav-popup-link.active {
+    background: rgba(128, 0, 32, 0.1);
+    color: var(--primary-color);
+    border-left-color: var(--primary-color);
+    font-weight: 600;
+}
+
+.nav-popup-link i {
+    width: 20px;
+    text-align: center;
+}
+
+/* Responsive Popup */
+@media (max-width: 480px) {
+    .nav-popup-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .nav-popup {
+        bottom: auto;
+        right: auto;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.95);
+        min-width: 280px;
+        max-width: 90%;
+    }
+
+    .nav-popup.active {
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
