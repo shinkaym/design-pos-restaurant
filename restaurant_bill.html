@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurant Receipt</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/global.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Raleway:wght@400;500&display=swap');
 
         body {
             font-family: 'Inconsolata', monospace, sans-serif;
@@ -178,7 +181,7 @@
             width: 100%;
             margin-top: 25px; /* Adjusted margin */
             padding: 12px;
-            background-color: #333;
+            background-color: #800020;
             color: white;
             border: none;
             border-radius: 5px;
@@ -190,7 +193,7 @@
         }
 
         .print-btn:hover {
-            background-color: #555;
+            background-color: #A52A2A;
         }
 
         @media print {
@@ -208,6 +211,7 @@
                 display: none;
             }
         }
+
     </style>
 </head>
 <body>
@@ -347,8 +351,6 @@
         <i class="fas fa-bars"></i>
     </button>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles/global.css">
     <script>
         function toggleNavPopup() {
             const popup = document.getElementById('navPopup');

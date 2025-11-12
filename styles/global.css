@@ -199,6 +199,7 @@ button:hover {
     pointer-events: none;
     transition: all 0.3s ease;
     border: 2px solid var(--primary-color);
+    overflow: visible;
 }
 
 .nav-popup.active {
@@ -216,20 +217,39 @@ button:hover {
     padding-bottom: 10px;
 }
 
-.nav-popup-close {
+.nav-popup-close,
+button.nav-popup-close {
     position: absolute;
-    top: 12px;
-    right: 12px;
-    background: none;
-    border: none;
-    color: #999;
-    font-size: 24px;
+    top: 15px;
+    right: 8px;
+    background: none !important;
+    border: none !important;
+    color: #999 !important;
+    font-size: 24px !important;
     cursor: pointer;
-    transition: color 0.2s;
+    transition: all 0.2s;
+    padding: 8px !important;
+    margin: 0 !important;
+    width: 40px !important;
+    height: 40px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    border-radius: 50%;
+    font-weight: 400 !important;
 }
 
-.nav-popup-close:hover {
-    color: var(--primary-color);
+.nav-popup-close:hover,
+button.nav-popup-close:hover {
+    color: var(--primary-color) !important;
+    background: rgba(128, 0, 32, 0.1) !important;
+}
+
+.nav-popup-close:focus,
+button.nav-popup-close:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
 }
 
 /* Popup Navigation List */
