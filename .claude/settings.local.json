@@ -1,9 +1,16 @@
 {
   "permissions": {
     "allow": [
-      "Bash(comm -12:*)"
+      "Bash(comm -12:*)",
+      "Bash(find:*)",
+      "Bash(git add:*)"
     ],
-    "deny": [],
+    "deny": [
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git reset:*)",
+      "Bash(git checkout:*)"
+    ],
     "ask": []
   }
 }
