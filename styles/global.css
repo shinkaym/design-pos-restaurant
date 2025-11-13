@@ -602,10 +602,10 @@ button.nav-popup-close:focus {
     align-items: center;
     gap: 12px;
     background: transparent;
-    padding: 0;
+    padding: 0 0 20px 0;
     border-radius: 0;
     border: none;
-    margin-bottom: 20px;
+    margin-bottom: 0;
     box-shadow: none;
     transition: all 0.3s ease;
     justify-content: flex-end;
@@ -630,7 +630,7 @@ button.nav-popup-close:focus {
 }
 
 .search-bar input {
-    flex: 0;
+    flex: 0 1 auto;
     border: 2px solid #e0e0e0;
     outline: none;
     font-size: 1em;
@@ -972,6 +972,11 @@ button.nav-popup-close:focus {
 
 /* Responsive Popup */
 @media (max-width: 480px) {
+    .container {
+        margin: 20px auto;
+        padding: 15px;
+    }
+
     .nav-popup-btn {
         width: 50px;
         height: 50px;
@@ -1000,7 +1005,7 @@ button.nav-popup-close:focus {
 
     .search-bar {
         flex-direction: column;
-        align-items: flex-end;
+        align-items: stretch;
         gap: 10px;
     }
 
