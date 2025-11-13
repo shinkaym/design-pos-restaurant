@@ -184,8 +184,10 @@
                 const originalIndex = orders.findIndex(o => o.id === order.id);
                 const card = document.createElement('div');
                 card.classList.add('order-card');
+                card.setAttribute('data-index', originalIndex);
                 card.innerHTML = `
                     <div class="card-header">
+                        <input type="checkbox" class="card-checkbox" data-index="${originalIndex}">
                         <span class="order-id">${order.id}</span>
                         <span class="order-time"><i class="fas fa-clock"></i> ${order.time}</span>
                     </div>
@@ -194,12 +196,18 @@
                         <p class="order-items">${order.items}</p>
                         <div class="card-footer">
                             <span class="order-price">${order.price}</span>
-                            <button onclick="completeOrder(${originalIndex})" class="btn-complete">
-                                <i class="fas fa-check"></i> Complete
-                            </button>
                         </div>
                     </div>
                 `;
+                card.addEventListener('click', (e) => {
+                    if (e.target.tagName !== 'INPUT') {
+                        card.querySelector('.card-checkbox').checked = !card.querySelector('.card-checkbox').checked;
+                    }
+                    updateCardSelection(card);
+                });
+                card.querySelector('.card-checkbox').addEventListener('change', () => {
+                    updateCardSelection(card);
+                });
                 pendingOrdersContainer.appendChild(card);
             });
 
@@ -258,11 +266,37 @@
             renderCompletedOrders();
         }
 
-        function handleDone() {
-            const selectedDate = datePicker.value;
-            if (selectedDate) {
-                alert('Selected Date: ' + selectedDate);
+        function updateCardSelection(card) {
+            const checkbox = card.querySelector('.card-checkbox');
+            if (checkbox.checked) {
+                card.classList.add('selected');
+            } else {
+                card.classList.remove('selected');
             }
+        }
+
+        function handleDone() {
+            const selectedCards = document.querySelectorAll('.order-card.selected');
+            if (selectedCards.length === 0) {
+                alert('Please select at least one order to complete');
+                return;
+            }
+
+            const selectedIndices = Array.from(selectedCards).map(card => {
+                return parseInt(card.getAttribute('data-index'));
+            }).sort((a, b) => b - a);
+
+            selectedIndices.forEach(index => {
+                const order = orders[index];
+                order.status = 'Completed';
+                completedOrders.push({...order});
+                orders.splice(index, 1);
+            });
+
+            sessionStorage.setItem('completedOrders', JSON.stringify(completedOrders));
+            updateOrderCounts();
+            renderOrders(filteredOrders);
+            renderCompletedOrders();
         }
 
         // Event listeners

@@ -186,8 +186,10 @@
                 const originalIndex = reservations.findIndex(r => r.id === reservation.id);
                 const card = document.createElement('div');
                 card.classList.add('reservation-card');
+                card.setAttribute('data-index', originalIndex);
                 card.innerHTML = `
                     <div class="card-header">
+                        <input type="checkbox" class="card-checkbox" data-index="${originalIndex}">
                         <span class="reservation-id">${reservation.id}</span>
                         <span class="reservation-time"><i class="fas fa-clock"></i> ${reservation.time}</span>
                     </div>
@@ -204,11 +206,17 @@
                             </div>
                         </div>
                         <p class="reservation-date"><i class="fas fa-calendar"></i> ${reservation.date}</p>
-                        <button onclick="completeReservation(${originalIndex})" class="btn-complete">
-                            <i class="fas fa-check"></i> Check In
-                        </button>
                     </div>
                 `;
+                card.addEventListener('click', (e) => {
+                    if (e.target.tagName !== 'INPUT') {
+                        card.querySelector('.card-checkbox').checked = !card.querySelector('.card-checkbox').checked;
+                    }
+                    updateCardSelection(card);
+                });
+                card.querySelector('.card-checkbox').addEventListener('change', () => {
+                    updateCardSelection(card);
+                });
                 pendingReservationsContainer.appendChild(card);
             });
 
@@ -273,11 +281,37 @@
             renderCompletedReservations();
         }
 
-        function handleDone() {
-            const selectedDate = datePicker.value;
-            if (selectedDate) {
-                alert('Selected Date: ' + selectedDate);
+        function updateCardSelection(card) {
+            const checkbox = card.querySelector('.card-checkbox');
+            if (checkbox.checked) {
+                card.classList.add('selected');
+            } else {
+                card.classList.remove('selected');
             }
+        }
+
+        function handleDone() {
+            const selectedCards = document.querySelectorAll('.reservation-card.selected');
+            if (selectedCards.length === 0) {
+                alert('Please select at least one reservation to check in');
+                return;
+            }
+
+            const selectedIndices = Array.from(selectedCards).map(card => {
+                return parseInt(card.getAttribute('data-index'));
+            }).sort((a, b) => b - a);
+
+            selectedIndices.forEach(index => {
+                const reservation = reservations[index];
+                reservation.status = 'Completed';
+                completedReservations.push({...reservation});
+                reservations.splice(index, 1);
+            });
+
+            localStorage.setItem('completedReservations', JSON.stringify(completedReservations));
+            updateReservationCounts();
+            renderReservations(filteredReservations);
+            renderCompletedReservations();
         }
 
         // Event listeners
