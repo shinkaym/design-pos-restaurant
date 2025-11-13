@@ -601,18 +601,19 @@ button.nav-popup-close:focus {
     display: flex;
     align-items: center;
     gap: 12px;
-    background: white;
-    padding: 10px 20px;
-    border-radius: 10px;
-    border: 2px solid #e0e0e0;
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+    border: none;
     margin-bottom: 30px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: none;
     transition: all 0.3s ease;
+    justify-content: flex-end;
 }
 
 .search-bar:focus-within {
-    border-color: var(--primary-color);
-    box-shadow: 0 4px 12px rgba(128, 0, 32, 0.1);
+    border-color: transparent;
+    box-shadow: none;
     outline: none;
 }
 
@@ -629,26 +630,30 @@ button.nav-popup-close:focus {
 }
 
 .search-bar input {
-    flex: 1;
-    border: none;
+    flex: 0;
+    border: 2px solid #e0e0e0;
     outline: none;
     font-size: 1em;
     font-family: 'Raleway', sans-serif;
-    padding: 0 4px;
+    padding: 10px 15px;
     margin: 0;
-    background: transparent;
+    background: white;
     color: var(--text-color);
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     box-sizing: border-box;
-    height: auto;
+    height: 42px;
     line-height: 1.5;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
 }
 
 .search-bar input:focus {
     outline: none;
-    box-shadow: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(128, 0, 32, 0.1);
 }
 
 .search-bar input::placeholder {
@@ -683,6 +688,34 @@ button.nav-popup-close:focus {
 
 .clear-search-btn[style*="display: block"] {
     display: flex !important;
+}
+
+.done-btn {
+    background: linear-gradient(135deg, var(--primary-color), #a52a2a);
+    color: white;
+    border: none;
+    padding: 0 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95em;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(128, 0, 32, 0.2);
+    flex-shrink: 0;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.done-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(128, 0, 32, 0.3);
+}
+
+.done-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(128, 0, 32, 0.15);
 }
 
 /* Shared Section Header */
@@ -945,5 +978,20 @@ button.nav-popup-close:focus {
 
     .deco-circle {
         display: none;
+    }
+
+    .search-bar {
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 10px;
+    }
+
+    .search-bar i {
+        align-self: flex-start;
+    }
+
+    .search-bar input,
+    .done-btn {
+        width: 100%;
     }
 }
