@@ -41,6 +41,10 @@
     animation: fadeInUp 0.6s ease-out backwards;
 }
 
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
 .form-group:nth-child(1) {
     animation-delay: 0.3s;
 }
