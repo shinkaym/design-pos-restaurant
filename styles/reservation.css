@@ -35,9 +35,13 @@
 /* Main Layout */
 .main-layout {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 30px;
     margin-bottom: 40px;
+}
+
+.main-layout .cards-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
 }
 
 /* Header Section */
@@ -77,6 +81,24 @@
     .cards-grid {
         grid-template-columns: repeat(3, 1fr);
     }
+
+    .main-layout .cards-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+@media (max-width: 1400px) {
+    .main-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .main-layout .cards-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+
+    .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (max-width: 1200px) {
@@ -91,11 +113,19 @@
     }
 
     .cards-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 1024px) {
+    .main-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .main-layout .cards-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+
     .cards-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -122,6 +152,10 @@
     .cards-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 12px;
+    }
+
+    .main-layout .cards-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
     }
 
     .reservation-card {
@@ -173,6 +207,7 @@
 
     .main-layout {
         gap: 20px;
+        grid-template-columns: 1fr;
     }
 
     .reservations-section {
@@ -198,6 +233,10 @@
     .cards-grid {
         grid-template-columns: 1fr;
         gap: 10px;
+    }
+
+    .main-layout .cards-grid {
+        grid-template-columns: 1fr !important;
     }
 
     .reservation-card {

@@ -47,10 +47,10 @@
             </div>
 
         <div class="search-bar">
-            <i class="fas fa-search"></i>
-            <input type="text" id="search-input" placeholder="Search by Order ID or Customer Name...">
-            <button class="clear-search-btn" onclick="clearSearch()">
-                <i class="fas fa-times"></i>
+            <i class="fas fa-calendar"></i>
+            <input type="date" id="date-picker">
+            <button class="done-btn" onclick="handleDone()">
+                Done
             </button>
         </div>
 
@@ -149,8 +149,7 @@
         const completedOrdersContainer = document.getElementById('completed-orders-container');
         const pendingBadge = document.getElementById('pending-badge');
         const completedBadge = document.getElementById('completed-badge');
-        const searchInput = document.getElementById('search-input');
-        const clearSearchBtn = document.querySelector('.clear-search-btn');
+        const datePicker = document.getElementById('date-picker');
 
         let orders = [
             { id: '#1001', customer: 'John Doe', items: 'Pizza, Coke', price: '$25.50', status: 'Pending', time: '2:30 PM' },
@@ -259,30 +258,15 @@
             renderCompletedOrders();
         }
 
-        function searchOrders() {
-            const searchTerm = searchInput.value.toLowerCase().trim();
-            if (searchTerm === '') {
-                filteredOrders = [...orders];
-                clearSearchBtn.style.display = 'none';
-            } else {
-                filteredOrders = orders.filter(order =>
-                    order.id.toLowerCase().includes(searchTerm) ||
-                    order.customer.toLowerCase().includes(searchTerm)
-                );
-                clearSearchBtn.style.display = 'block';
+        function handleDone() {
+            const selectedDate = datePicker.value;
+            if (selectedDate) {
+                alert('Selected Date: ' + selectedDate);
             }
-            renderOrders(filteredOrders);
-        }
-
-        function clearSearch() {
-            searchInput.value = '';
-            filteredOrders = [...orders];
-            clearSearchBtn.style.display = 'none';
-            renderOrders();
         }
 
         // Event listeners
-        searchInput.addEventListener('input', searchOrders);
+        datePicker.addEventListener('change', handleDone);
 
         // Load completed orders from session storage
         const lastResetDate = sessionStorage.getItem('lastResetDate');

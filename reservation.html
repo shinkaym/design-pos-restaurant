@@ -47,10 +47,10 @@
             </div>
 
         <div class="search-bar">
-            <i class="fas fa-search"></i>
-            <input type="text" id="search-input" placeholder="Search by Reservation ID or Guest Name...">
-            <button class="clear-search-btn" onclick="clearSearch()">
-                <i class="fas fa-times"></i>
+            <i class="fas fa-calendar"></i>
+            <input type="date" id="date-picker">
+            <button class="done-btn" onclick="handleDone()">
+                Done
             </button>
         </div>
 
@@ -149,8 +149,7 @@
         const completedReservationsContainer = document.getElementById('completed-reservations-container');
         const pendingBadge = document.getElementById('pending-badge');
         const completedBadge = document.getElementById('completed-badge');
-        const searchInput = document.getElementById('search-input');
-        const clearSearchBtn = document.querySelector('.clear-search-btn');
+        const datePicker = document.getElementById('date-picker');
 
         let reservations = [
             { id: '#R001', guest: 'John Doe', guests: 2, time: '7:00 PM', date: 'Today', table: '5', status: 'Pending' },
@@ -274,30 +273,15 @@
             renderCompletedReservations();
         }
 
-        function searchReservations() {
-            const searchTerm = searchInput.value.toLowerCase().trim();
-            if (searchTerm === '') {
-                filteredReservations = [...reservations];
-                clearSearchBtn.style.display = 'none';
-            } else {
-                filteredReservations = reservations.filter(reservation =>
-                    reservation.id.toLowerCase().includes(searchTerm) ||
-                    reservation.guest.toLowerCase().includes(searchTerm)
-                );
-                clearSearchBtn.style.display = 'block';
+        function handleDone() {
+            const selectedDate = datePicker.value;
+            if (selectedDate) {
+                alert('Selected Date: ' + selectedDate);
             }
-            renderReservations(filteredReservations);
-        }
-
-        function clearSearch() {
-            searchInput.value = '';
-            filteredReservations = [...reservations];
-            clearSearchBtn.style.display = 'none';
-            renderReservations();
         }
 
         // Event listeners
-        searchInput.addEventListener('input', searchReservations);
+        datePicker.addEventListener('change', handleDone);
 
         // Load completed reservations from localStorage
         const storedCompletedReservations = localStorage.getItem('completedReservations');
