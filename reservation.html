@@ -180,14 +180,14 @@
         const completedStatCard = document.querySelector('.completed-stat');
 
         let reservations = [
-            { id: '#R001', guest: 'John Doe', guests: 2, time: '7:00 PM', date: '2025-11-14', table: '5', status: 'Pending', note: 'Window seat preferred, anniversary celebration' },
-            { id: '#R002', guest: 'Jane Smith', guests: 4, time: '8:00 PM', date: '2025-11-14', table: '12', status: 'Pending', note: 'Family gathering, birthday dinner' },
-            { id: '#R003', guest: 'Alice Wonderland', guests: 1, time: '6:00 PM', date: '2025-11-14', table: '2', status: 'Pending', note: 'Solo diner, quiet table requested' },
-            { id: '#R004', guest: 'Bob Johnson', guests: 3, time: '7:30 PM', date: '2025-11-14', table: '8', status: 'Pending', note: 'Business dinner, private area if possible' },
-            { id: '#R005', guest: 'Emily Chen', guests: 2, time: '8:30 PM', date: '2025-11-14', table: '10', status: 'Pending', note: 'Date night, vegetarian options needed' },
-            { id: '#R006', guest: 'Michael Brown', guests: 5, time: '6:30 PM', date: '2025-11-14', table: '15', status: 'Pending', note: 'Corporate event, special menu prepared' },
-            { id: '#R007', guest: 'Sarah Davis', guests: 2, time: '9:00 PM', date: '2025-11-14', table: '7', status: 'Pending', note: 'Late dinner, jazz ambiance preferred' },
-            { id: '#R008', guest: 'David Wilson', guests: 6, time: '7:15 PM', date: '2025-11-14', table: '1,2', status: 'Pending', note: 'Family reunion, allergy information provided' },
+            { id: '#R001', guest: 'John Doe', guests: 2, time: '7:00 PM', date: '2025-11-14', table: '5', items: 'Steak, Wine', price: '$85.00', status: 'Pending', note: 'Window seat preferred, anniversary celebration' },
+            { id: '#R002', guest: 'Jane Smith', guests: 4, time: '8:00 PM', date: '2025-11-14', table: '12', items: 'Mixed Grill, Appetizers', price: '$120.00', status: 'Pending', note: 'Family gathering, birthday dinner' },
+            { id: '#R003', guest: 'Alice Wonderland', guests: 1, time: '6:00 PM', date: '2025-11-14', table: '2', items: 'Salmon, Salad', price: '$42.50', status: 'Pending', note: 'Solo diner, quiet table requested' },
+            { id: '#R004', guest: 'Bob Johnson', guests: 3, time: '7:30 PM', date: '2025-11-14', table: '8', items: 'Duck Confit, Sides', price: '$95.00', status: 'Pending', note: 'Business dinner, private area if possible' },
+            { id: '#R005', guest: 'Emily Chen', guests: 2, time: '8:30 PM', date: '2025-11-14', table: '10', items: 'Vegetarian Menu, Dessert', price: '$68.00', status: 'Pending', note: 'Date night, vegetarian options needed' },
+            { id: '#R006', guest: 'Michael Brown', guests: 5, time: '6:30 PM', date: '2025-11-14', table: '15', items: 'Premium Selection, Wine Pairing', price: '$250.00', status: 'Pending', note: 'Corporate event, special menu prepared' },
+            { id: '#R007', guest: 'Sarah Davis', guests: 2, time: '9:00 PM', date: '2025-11-14', table: '7', items: 'Lobster Tail, Champagne', price: '$105.50', status: 'Pending', note: 'Late dinner, jazz ambiance preferred' },
+            { id: '#R008', guest: 'David Wilson', guests: 6, time: '7:15 PM', date: '2025-11-14', table: '1,2', items: 'Family Feast, Beverages', price: '$180.00', status: 'Pending', note: 'Family reunion, allergy information provided' },
         ];
         let completedReservations = [];
         let filteredReservations = [...reservations];
@@ -225,6 +225,7 @@
                     </div>
                     <div class="card-body">
                         <h3 class="customer-name">${reservation.guest}</h3>
+                        <p class="order-items">${reservation.items}</p>
                         <div class="order-info">
                             <span class="guest-badge"><i class="fas fa-users"></i> ${reservation.guests} ${reservation.guests === 1 ? 'guest' : 'guests'}</span>
                             <span class="table-badge"><i class="fas fa-chair"></i> Table ${reservation.table}</span>
@@ -232,6 +233,9 @@
                         <div class="card-note-section">
                             <label>Note:</label>
                             <div class="note-display" data-index="${originalIndex}">${reservation.note || 'No notes'}</div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="order-price">${reservation.price}</span>
                         </div>
                     </div>
                     <div class="card-actions">
@@ -272,6 +276,7 @@
                     </div>
                     <div class="card-body">
                         <h3 class="customer-name">${reservation.guest}</h3>
+                        <p class="order-items">${reservation.items}</p>
                         <div class="order-info">
                             <span class="guest-badge"><i class="fas fa-users"></i> ${reservation.guests} ${reservation.guests === 1 ? 'guest' : 'guests'}</span>
                             <span class="table-badge"><i class="fas fa-chair"></i> Table ${reservation.table}</span>
@@ -279,6 +284,9 @@
                         <div class="card-note-section">
                             <label>Note:</label>
                             <div class="note-display">${reservation.note || 'No notes'}</div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="order-price">${reservation.price}</span>
                         </div>
                     </div>
                 `;
@@ -321,6 +329,8 @@
                 <p><strong>Time:</strong> ${reservation.time}</p>
                 <p><strong>Date:</strong> ${reservation.date}</p>
                 <p><strong>Table:</strong> ${reservation.table}</p>
+                <p><strong>Items:</strong> ${reservation.items}</p>
+                <p><strong>Price:</strong> ${reservation.price}</p>
                 <p><strong>Note:</strong> ${reservation.note || 'No notes'}</p>
             `;
             document.getElementById('printContent').innerHTML = printContent;
@@ -459,11 +469,8 @@
         // Update layout on window resize
         window.addEventListener('resize', updateLayout);
 
-        // Load completed reservations from localStorage
-        const storedCompletedReservations = localStorage.getItem('completedReservations');
-        if (storedCompletedReservations) {
-            completedReservations = JSON.parse(storedCompletedReservations);
-        }
+        // Load completed reservations from localStorage (clear old data)
+        localStorage.removeItem('completedReservations');
 
         // Set date picker to today by default
         const today = new Date().toISOString().split('T')[0];
