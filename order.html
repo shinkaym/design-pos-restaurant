@@ -46,6 +46,7 @@
                     <div class="stat-card completed-stat">
                         <span class="stat-number" id="completed-orders-count">0</span>
                         <span class="stat-label">Completed</span>
+                        <i class="fas fa-eye stat-toggle-icon"></i>
                     </div>
                 </div>
             </div>
@@ -511,6 +512,10 @@
         completedStatCard.addEventListener('click', () => {
             const isHidden = completedOrdersSection.style.display === 'none';
             completedOrdersSection.style.display = isHidden ? 'block' : 'none';
+            completedStatCard.classList.toggle('active');
+            const icon = completedStatCard.querySelector('.stat-toggle-icon');
+            icon.classList.toggle('fa-eye');
+            icon.classList.toggle('fa-eye-slash');
             updateLayout();
         });
 

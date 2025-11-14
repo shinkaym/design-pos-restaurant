@@ -571,6 +571,34 @@ button.nav-popup-close:focus {
 .stat-card.completed-stat {
     border-color: #4CAF50;
     background: linear-gradient(135deg, #f0fff4, #ffffff);
+    position: relative;
+    cursor: pointer;
+}
+
+.stat-card.completed-stat.active {
+    border-color: #2E7D32;
+    background: linear-gradient(135deg, #e8f5e9, #ffffff);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
+}
+
+.stat-toggle-icon {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    color: #4CAF50;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 4px;
+}
+
+.stat-toggle-icon:hover {
+    transform: scale(1.15);
+    color: #2E7D32;
+}
+
+.stat-card.completed-stat.active .stat-toggle-icon {
+    color: #2E7D32;
 }
 
 .stat-number {
