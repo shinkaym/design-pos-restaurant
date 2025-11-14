@@ -26,15 +26,15 @@
             <!-- Login Form -->
             <form class="login-form" id="loginForm" novalidate>
                 <div class="form-group">
-                    <label for="user_id" class="form-label">
+                    <label for="username" class="form-label">
                         <i class="fas fa-user"></i>
-                        <span>User ID</span>
+                        <span>Username</span>
                     </label>
                     <div class="input-wrapper">
-                        <input type="text" id="user_id" name="user_id" class="form-input" placeholder="Enter your user ID" required>
+                        <input type="text" id="username" name="username" class="form-input" placeholder="Enter your username" required>
                         <span class="input-focus-bg"></span>
                     </div>
-                    <span class="error-message" id="user_id-error"></span>
+                    <span class="error-message" id="username-error"></span>
                 </div>
 
                 <div class="form-group">
@@ -125,7 +125,7 @@
 
         // Form Validation
         const form = document.getElementById('loginForm');
-        const userIdInput = document.getElementById('user_id');
+        const usernameInput = document.getElementById('username');
         const passwordInput = document.getElementById('password');
 
         function validateField(field) {
@@ -136,12 +136,12 @@
             let isValid = true;
             let errorMsg = '';
 
-            if (fieldId === 'user_id') {
+            if (fieldId === 'username') {
                 if (!value) {
-                    errorMsg = 'User ID is required';
+                    errorMsg = 'Username is required';
                     isValid = false;
                 } else if (value.length < 3) {
-                    errorMsg = 'User ID must be at least 3 characters';
+                    errorMsg = 'Username must be at least 3 characters';
                     isValid = false;
                 }
             } else if (fieldId === 'password') {
@@ -170,15 +170,15 @@
         }
 
         // Validate on blur
-        userIdInput.addEventListener('blur', () => validateField(userIdInput));
+        usernameInput.addEventListener('blur', () => validateField(usernameInput));
         passwordInput.addEventListener('blur', () => validateField(passwordInput));
 
         // Clear error on input
-        userIdInput.addEventListener('input', () => {
-            if (userIdInput.classList.contains('input-error')) {
-                const errorEl = document.getElementById('user_id-error');
+        usernameInput.addEventListener('input', () => {
+            if (usernameInput.classList.contains('input-error')) {
+                const errorEl = document.getElementById('username-error');
                 errorEl.style.display = 'none';
-                userIdInput.classList.remove('input-error');
+                usernameInput.classList.remove('input-error');
             }
         });
 
@@ -194,13 +194,13 @@
         form.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            const isUserIdValid = validateField(userIdInput);
+            const isUsernameValid = validateField(usernameInput);
             const isPasswordValid = validateField(passwordInput);
 
-            if (isUserIdValid && isPasswordValid) {
+            if (isUsernameValid && isPasswordValid) {
                 alert('Login successful! (Demo mode)');
                 form.reset();
-                userIdInput.classList.remove('input-valid');
+                usernameInput.classList.remove('input-valid');
                 passwordInput.classList.remove('input-valid');
             }
         });
