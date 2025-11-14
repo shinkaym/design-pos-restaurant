@@ -6,6 +6,99 @@
     overflow: hidden;
 }
 
+/* Card Note Section */
+.card-note-section {
+    margin: 8px 0;
+    padding: 8px 0;
+    border-top: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.card-note-section label {
+    font-size: 0.75em;
+    margin: 0 0 4px 0;
+    color: #999;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.note-display {
+    font-size: 0.8em;
+    color: #555;
+    font-style: italic;
+    line-height: 1.4;
+    word-wrap: break-word;
+}
+
+/* Card Actions */
+.card-actions {
+    display: flex;
+    gap: 6px;
+    margin-top: 12px;
+    padding-top: 8px;
+    border-top: 1px solid #f0f0f0;
+    justify-content: center;
+}
+
+.action-btn {
+    flex: 1;
+    padding: 8px 6px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.action-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.action-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.print-btn {
+    background: linear-gradient(135deg, #2196F3, #1976D2);
+}
+
+.print-btn:hover {
+    background: linear-gradient(135deg, #1976D2, #1565C0);
+}
+
+.done-btn {
+    background: linear-gradient(135deg, #4CAF50, #388E3C);
+}
+
+.done-btn:hover {
+    background: linear-gradient(135deg, #388E3C, #2E7D32);
+}
+
+.delete-btn {
+    background: linear-gradient(135deg, #F44336, #D32F2F);
+}
+
+.delete-btn:hover {
+    background: linear-gradient(135deg, #D32F2F, #C62828);
+}
+
+.note-btn {
+    background: linear-gradient(135deg, #FF9800, #F57C00);
+}
+
+.note-btn:hover {
+    background: linear-gradient(135deg, #F57C00, #E65100);
+}
+
 .reservations-section {
     background: #f9f9f9;
     padding: 20px;
@@ -36,13 +129,9 @@
 /* Main Layout */
 .main-layout {
     display: grid;
-    grid-template-columns: 1fr 1fr;
     gap: 30px;
     margin-bottom: 20px;
-}
-
-.main-layout .cards-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
+    /* grid-template-columns controlled by JavaScript */
 }
 
 /* Header Section */
@@ -79,27 +168,11 @@
 
 /* Responsive Design */
 @media (max-width: 1600px) {
-    .cards-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    .main-layout .cards-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-    }
+    /* Cards grid controlled by JavaScript */
 }
 
 @media (max-width: 1400px) {
-    .main-layout {
-        grid-template-columns: 1fr;
-    }
-
-    .main-layout .cards-grid {
-        grid-template-columns: repeat(3, 1fr) !important;
-    }
-
-    .cards-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+    /* Cards grid controlled by JavaScript */
 }
 
 @media (max-width: 1200px) {
@@ -113,23 +186,11 @@
         justify-content: flex-start;
     }
 
-    .cards-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+    /* Cards grid controlled by JavaScript */
 }
 
 @media (max-width: 1024px) {
-    .main-layout {
-        grid-template-columns: 1fr;
-    }
-
-    .main-layout .cards-grid {
-        grid-template-columns: repeat(3, 1fr) !important;
-    }
-
-    .cards-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+    /* Cards grid controlled by JavaScript */
 }
 
 @media (max-width: 768px) {
@@ -151,12 +212,7 @@
     }
 
     .cards-grid {
-        grid-template-columns: repeat(2, 1fr);
         gap: 12px;
-    }
-
-    .main-layout .cards-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
     }
 
     .reservation-card {
@@ -208,7 +264,7 @@
 
     .main-layout {
         gap: 20px;
-        grid-template-columns: 1fr;
+        /* Grid columns controlled by JavaScript */
     }
 
     .reservations-section {
@@ -232,12 +288,8 @@
     }
 
     .cards-grid {
-        grid-template-columns: 1fr;
         gap: 10px;
-    }
-
-    .main-layout .cards-grid {
-        grid-template-columns: 1fr !important;
+        /* Grid columns controlled by JavaScript */
     }
 
     .reservation-card {

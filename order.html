@@ -46,14 +46,6 @@
                 </div>
             </div>
 
-        <div class="search-bar">
-            <i class="fas fa-calendar"></i>
-            <input type="date" id="date-picker">
-            <button class="done-btn" onclick="handleDone()">
-                Done
-            </button>
-        </div>
-
         <div class="main-layout">
             <!-- Pending Orders Section -->
             <div class="orders-section">
@@ -66,8 +58,8 @@
                 </div>
             </div>
 
-            <!-- Completed Orders Section -->
-            <div class="orders-section">
+            <!-- Completed Orders Section (Hidden by default) -->
+            <div class="orders-section" id="completed-orders-section" style="display: none;">
                 <div class="section-header">
                     <h2><i class="fas fa-check-circle"></i> Completed Orders</h2>
                     <span class="badge-count completed-badge" id="completed-badge">0</span>
@@ -149,17 +141,18 @@
         const completedOrdersContainer = document.getElementById('completed-orders-container');
         const pendingBadge = document.getElementById('pending-badge');
         const completedBadge = document.getElementById('completed-badge');
-        const datePicker = document.getElementById('date-picker');
+        const completedOrdersSection = document.getElementById('completed-orders-section');
+        const completedStatCard = document.querySelector('.completed-stat');
 
         let orders = [
-            { id: '#1001', customer: 'John Doe', items: 'Pizza, Coke', price: '$25.50', status: 'Pending', time: '2:30 PM' },
-            { id: '#1002', customer: 'Jane Smith', items: 'Burger, Fries', price: '$15.00', status: 'Pending', time: '2:45 PM' },
-            { id: '#1003', customer: 'Alice Wonderland', items: 'Salad, Iced Tea', price: '$12.75', status: 'Pending', time: '2:50 PM' },
-            { id: '#1004', customer: 'Bob Johnson', items: 'Fish & Chips', price: '$18.90', status: 'Pending', time: '3:05 PM' },
-            { id: '#1005', customer: 'Emily Chen', items: 'Pasta, Wine', price: '$32.50', status: 'Pending', time: '3:15 PM' },
-            { id: '#1006', customer: 'Michael Brown', items: 'Steak, Potatoes', price: '$45.00', status: 'Pending', time: '3:20 PM' },
-            { id: '#1007', customer: 'Sarah Davis', items: 'Sushi, Green Tea', price: '$28.75', status: 'Pending', time: '3:25 PM' },
-            { id: '#1008', customer: 'David Wilson', items: 'Chicken Sandwich', price: '$14.50', status: 'Pending', time: '3:30 PM' },
+            { id: '#1001', customer: 'John Doe', items: 'Pizza, Coke', price: '$25.50', status: 'Pending', time: '2:30 PM', note: '' },
+            { id: '#1002', customer: 'Jane Smith', items: 'Burger, Fries', price: '$15.00', status: 'Pending', time: '2:45 PM', note: '' },
+            { id: '#1003', customer: 'Alice Wonderland', items: 'Salad, Iced Tea', price: '$12.75', status: 'Pending', time: '2:50 PM', note: '' },
+            { id: '#1004', customer: 'Bob Johnson', items: 'Fish & Chips', price: '$18.90', status: 'Pending', time: '3:05 PM', note: '' },
+            { id: '#1005', customer: 'Emily Chen', items: 'Pasta, Wine', price: '$32.50', status: 'Pending', time: '3:15 PM', note: '' },
+            { id: '#1006', customer: 'Michael Brown', items: 'Steak, Potatoes', price: '$45.00', status: 'Pending', time: '3:20 PM', note: '' },
+            { id: '#1007', customer: 'Sarah Davis', items: 'Sushi, Green Tea', price: '$28.75', status: 'Pending', time: '3:25 PM', note: '' },
+            { id: '#1008', customer: 'David Wilson', items: 'Chicken Sandwich', price: '$14.50', status: 'Pending', time: '3:30 PM', note: '' },
         ];
         let completedOrders = [];
         let filteredOrders = [...orders];
@@ -187,27 +180,35 @@
                 card.setAttribute('data-index', originalIndex);
                 card.innerHTML = `
                     <div class="card-header">
-                        <input type="checkbox" class="card-checkbox" data-index="${originalIndex}">
                         <span class="order-id">${order.id}</span>
                         <span class="order-time"><i class="fas fa-clock"></i> ${order.time}</span>
                     </div>
                     <div class="card-body">
                         <h3 class="customer-name">${order.customer}</h3>
                         <p class="order-items">${order.items}</p>
+                        <div class="card-note-section">
+                            <label>Note:</label>
+                            <div class="note-display" data-index="${originalIndex}">${order.note || 'No notes'}</div>
+                        </div>
                         <div class="card-footer">
                             <span class="order-price">${order.price}</span>
                         </div>
                     </div>
+                    <div class="card-actions">
+                        <button class="action-btn print-btn" onclick="printOrder(${originalIndex})" title="Print order">
+                            <i class="fas fa-print"></i>
+                        </button>
+                        <button class="action-btn done-btn" onclick="completeOrder(${originalIndex})" title="Mark as done">
+                            <i class="fas fa-check"></i>
+                        </button>
+                        <button class="action-btn delete-btn" onclick="deleteOrder(${originalIndex})" title="Delete order">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        <button class="action-btn note-btn" onclick="editNote(${originalIndex})" title="Add/Edit note">
+                            <i class="fas fa-sticky-note"></i>
+                        </button>
+                    </div>
                 `;
-                card.addEventListener('click', (e) => {
-                    if (e.target.tagName !== 'INPUT') {
-                        card.querySelector('.card-checkbox').checked = !card.querySelector('.card-checkbox').checked;
-                    }
-                    updateCardSelection(card);
-                });
-                card.querySelector('.card-checkbox').addEventListener('change', () => {
-                    updateCardSelection(card);
-                });
                 pendingOrdersContainer.appendChild(card);
             });
 
@@ -221,7 +222,7 @@
             const displayOrders = ordersToRender || completedOrders;
             completedOrdersContainer.innerHTML = '';
 
-            displayOrders.filter(o => o.status === 'Completed').forEach((order) => {
+            displayOrders.filter(o => o.status === 'Completed').forEach((order, index) => {
                 const card = document.createElement('div');
                 card.classList.add('order-card', 'completed');
                 card.innerHTML = `
@@ -232,6 +233,10 @@
                     <div class="card-body">
                         <h3 class="customer-name">${order.customer}</h3>
                         <p class="order-items">${order.items}</p>
+                        <div class="card-note-section">
+                            <label>Note:</label>
+                            <div class="note-display">${order.note || 'No notes'}</div>
+                        </div>
                         <div class="card-footer">
                             <span class="order-price">${order.price}</span>
                         </div>
@@ -266,41 +271,138 @@
             renderCompletedOrders();
         }
 
-        function updateCardSelection(card) {
-            const checkbox = card.querySelector('.card-checkbox');
-            if (checkbox.checked) {
-                card.classList.add('selected');
-            } else {
-                card.classList.remove('selected');
-            }
-        }
-
-        function handleDone() {
-            const selectedCards = document.querySelectorAll('.order-card.selected');
-            if (selectedCards.length === 0) {
-                alert('Please select at least one order to complete');
-                return;
-            }
-
-            const selectedIndices = Array.from(selectedCards).map(card => {
-                return parseInt(card.getAttribute('data-index'));
-            }).sort((a, b) => b - a);
-
-            selectedIndices.forEach(index => {
-                const order = orders[index];
-                order.status = 'Completed';
-                completedOrders.push({...order});
+        function deleteOrder(index) {
+            if (confirm('Are you sure you want to delete this order?')) {
                 orders.splice(index, 1);
-            });
-
-            sessionStorage.setItem('completedOrders', JSON.stringify(completedOrders));
-            updateOrderCounts();
-            renderOrders(filteredOrders);
-            renderCompletedOrders();
+                updateOrderCounts();
+                renderOrders(filteredOrders);
+            }
         }
 
-        // Event listeners
-        datePicker.addEventListener('change', handleDone);
+        function printOrder(index) {
+            const order = orders[index];
+            const printContent = `
+                Order ID: ${order.id}
+                Customer: ${order.customer}
+                Items: ${order.items}
+                Price: ${order.price}
+                Time: ${order.time}
+                Note: ${order.note || 'No notes'}
+            `;
+            alert('Print preview:\n\n' + printContent);
+        }
+
+        function editNote(index) {
+            const newNote = prompt('Enter note for this order:', orders[index].note || '');
+            if (newNote !== null) {
+                orders[index].note = newNote;
+                renderOrders(filteredOrders);
+            }
+        }
+
+        // Toggle completed orders section when clicking the completed stat card
+        const mainLayout = document.querySelector('.main-layout');
+        const cardsGrids = document.querySelectorAll('.cards-grid');
+
+        // Function to update layout based on window size and visibility state
+        function updateLayout() {
+            const isCompleted = completedOrdersSection.style.display !== 'none';
+            const windowWidth = window.innerWidth;
+            const cardsGrids = document.querySelectorAll('.cards-grid'); // Move here for dynamic selection
+
+            console.log('=== updateLayout DEBUG ===');
+            console.log('isCompleted:', isCompleted);
+            console.log('windowWidth:', windowWidth);
+            console.log('cardsGrids count:', cardsGrids.length);
+            console.log('cardsGrids:', cardsGrids);
+
+            if (isCompleted) {
+                console.log('Mode: BOTH LISTS (Pending + Completed)');
+                // Showing both Pending and Completed
+                if (windowWidth < 768) {
+                    // Mobile: stack vertically, 1 card per row
+                    console.log('→ <768px: mainLayout=1fr, cards=1fr');
+                    mainLayout.style.gridTemplateColumns = '1fr';
+                    cardsGrids.forEach((grid, idx) => {
+                        console.log(`Grid ${idx} before:`, grid.style.gridTemplateColumns);
+                        grid.style.setProperty('grid-template-columns', '1fr', 'important');
+                        console.log(`Grid ${idx} after:`, grid.style.gridTemplateColumns);
+                    });
+                } else if (windowWidth < 1400) {
+                    // Tablet: 2 columns, 1 card per row each
+                    console.log('→ 768-1400px: mainLayout=1fr 1fr, cards=1fr');
+                    mainLayout.style.gridTemplateColumns = '1fr 1fr';
+                    cardsGrids.forEach((grid, idx) => {
+                        console.log(`Grid ${idx} before:`, grid.style.gridTemplateColumns);
+                        grid.style.setProperty('grid-template-columns', '1fr', 'important');
+                        console.log(`Grid ${idx} after:`, grid.style.gridTemplateColumns);
+                    });
+                } else {
+                    // Desktop: 2 columns, 2 cards per row each
+                    console.log('→ >1400px: mainLayout=1fr 1fr, cards=repeat(2,1fr)');
+                    mainLayout.style.gridTemplateColumns = '1fr 1fr';
+                    cardsGrids.forEach((grid, idx) => {
+                        console.log(`Grid ${idx} before:`, grid.style.gridTemplateColumns);
+                        grid.style.setProperty('grid-template-columns', 'repeat(2, 1fr)', 'important');
+                        console.log(`Grid ${idx} after:`, grid.style.gridTemplateColumns);
+                    });
+                }
+            } else {
+                console.log('Mode: SINGLE LIST (Pending only)');
+                // Showing only Pending
+                if (windowWidth < 480) {
+                    // Mobile: 1 card per row
+                    console.log('→ <480px: mainLayout=1fr, cards=1fr');
+                    mainLayout.style.gridTemplateColumns = '1fr';
+                    cardsGrids.forEach((grid, idx) => {
+                        console.log(`Grid ${idx} before:`, grid.style.gridTemplateColumns);
+                        grid.style.setProperty('grid-template-columns', '1fr', 'important');
+                        console.log(`Grid ${idx} after:`, grid.style.gridTemplateColumns);
+                    });
+                } else if (windowWidth < 768) {
+                    // Tablet: 2 cards per row
+                    console.log('→ 480-768px: mainLayout=1fr, cards=repeat(2,1fr)');
+                    mainLayout.style.gridTemplateColumns = '1fr';
+                    cardsGrids.forEach((grid, idx) => {
+                        console.log(`Grid ${idx} before:`, grid.style.gridTemplateColumns);
+                        grid.style.setProperty('grid-template-columns', 'repeat(2, 1fr)', 'important');
+                        console.log(`Grid ${idx} after:`, grid.style.gridTemplateColumns);
+                    });
+                } else if (windowWidth < 1400) {
+                    // Tablet+: 3 cards per row
+                    console.log('→ 768-1400px: mainLayout=1fr, cards=repeat(3,1fr)');
+                    mainLayout.style.gridTemplateColumns = '1fr';
+                    cardsGrids.forEach((grid, idx) => {
+                        console.log(`Grid ${idx} before:`, grid.style.gridTemplateColumns);
+                        grid.style.setProperty('grid-template-columns', 'repeat(3, 1fr)', 'important');
+                        console.log(`Grid ${idx} after:`, grid.style.gridTemplateColumns);
+                    });
+                } else {
+                    // Desktop: 4 cards per row
+                    console.log('→ >1400px: mainLayout=1fr, cards=repeat(4,1fr)');
+                    mainLayout.style.gridTemplateColumns = '1fr';
+                    cardsGrids.forEach((grid, idx) => {
+                        console.log(`Grid ${idx} before:`, grid.style.gridTemplateColumns);
+                        grid.style.setProperty('grid-template-columns', 'repeat(4, 1fr)', 'important');
+                        console.log(`Grid ${idx} after:`, grid.style.gridTemplateColumns);
+                    });
+                }
+            }
+            console.log('=== END DEBUG ===\n');
+        }
+
+        // Initial layout
+        updateLayout();
+
+        // Toggle on completed stat card click
+        completedStatCard.addEventListener('click', () => {
+            const isHidden = completedOrdersSection.style.display === 'none';
+            completedOrdersSection.style.display = isHidden ? 'block' : 'none';
+            updateLayout();
+        });
+
+        // Update layout on window resize
+        window.addEventListener('resize', updateLayout);
 
         // Load completed orders from session storage
         const lastResetDate = sessionStorage.getItem('lastResetDate');
