@@ -179,14 +179,14 @@
         const completedStatCard = document.querySelector('.completed-stat');
 
         let orders = [
-            { id: '#1001', customer: 'John Doe', items: 'Pizza, Coke', price: '$25.50', status: 'Pending', date: '2025-11-14', time: '2:30 PM', guests: 2, table: '5', note: '' },
-            { id: '#1002', customer: 'Jane Smith', items: 'Burger, Fries', price: '$15.00', status: 'Pending', date: '2025-11-14', time: '2:45 PM', guests: 4, table: '12', note: '' },
-            { id: '#1003', customer: 'Alice Wonderland', items: 'Salad, Iced Tea', price: '$12.75', status: 'Pending', date: '2025-11-14', time: '2:50 PM', guests: 1, table: '2', note: '' },
-            { id: '#1004', customer: 'Bob Johnson', items: 'Fish & Chips', price: '$18.90', status: 'Pending', date: '2025-11-14', time: '3:05 PM', guests: 3, table: '8', note: '' },
-            { id: '#1005', customer: 'Emily Chen', items: 'Pasta, Wine', price: '$32.50', status: 'Pending', date: '2025-11-14', time: '3:15 PM', guests: 2, table: '10', note: '' },
-            { id: '#1006', customer: 'Michael Brown', items: 'Steak, Potatoes', price: '$45.00', status: 'Pending', date: '2025-11-14', time: '3:20 PM', guests: 5, table: '15', note: '' },
-            { id: '#1007', customer: 'Sarah Davis', items: 'Sushi, Green Tea', price: '$28.75', status: 'Pending', date: '2025-11-14', time: '3:25 PM', guests: 2, table: '7', note: '' },
-            { id: '#1008', customer: 'David Wilson', items: 'Chicken Sandwich', price: '$14.50', status: 'Pending', date: '2025-11-14', time: '3:30 PM', guests: 6, table: '1,2', note: '' },
+            { id: '#1001', customer: 'John Doe', items: 'Pizza, Coke', price: '$25.50', status: 'Pending', date: '2025-11-14', time: '2:30 PM', guests: 2, table: '5', note: 'Extra cheese on pizza, no ice in coke' },
+            { id: '#1002', customer: 'Jane Smith', items: 'Burger, Fries', price: '$15.00', status: 'Pending', date: '2025-11-14', time: '2:45 PM', guests: 4, table: '12', note: 'Well-done burger, fries on the side' },
+            { id: '#1003', customer: 'Alice Wonderland', items: 'Salad, Iced Tea', price: '$12.75', status: 'Pending', date: '2025-11-14', time: '2:50 PM', guests: 1, table: '2', note: 'Dressing on the side, lemon in tea' },
+            { id: '#1004', customer: 'Bob Johnson', items: 'Fish & Chips', price: '$18.90', status: 'Pending', date: '2025-11-14', time: '3:05 PM', guests: 3, table: '8', note: 'Crispy batter, tartar sauce extra' },
+            { id: '#1005', customer: 'Emily Chen', items: 'Pasta, Wine', price: '$32.50', status: 'Pending', date: '2025-11-14', time: '3:15 PM', guests: 2, table: '10', note: 'Gluten-free pasta, white wine preference' },
+            { id: '#1006', customer: 'Michael Brown', items: 'Steak, Potatoes', price: '$45.00', status: 'Pending', date: '2025-11-14', time: '3:20 PM', guests: 5, table: '15', note: 'Medium-rare steak, mashed potatoes' },
+            { id: '#1007', customer: 'Sarah Davis', items: 'Sushi, Green Tea', price: '$28.75', status: 'Pending', date: '2025-11-14', time: '3:25 PM', guests: 2, table: '7', note: 'No wasabi, extra ginger requested' },
+            { id: '#1008', customer: 'David Wilson', items: 'Chicken Sandwich', price: '$14.50', status: 'Pending', date: '2025-11-14', time: '3:30 PM', guests: 6, table: '1,2', note: 'Grilled chicken, mayo and lettuce only' },
         ];
         let completedOrders = [];
         let filteredOrders = [...orders];

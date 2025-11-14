@@ -1164,6 +1164,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .note-btn {
     background: linear-gradient(135deg, #FF9800, #F57C00);
+    display: none;
 }
 
 .note-btn:hover {
