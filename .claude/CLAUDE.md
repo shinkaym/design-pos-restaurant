@@ -9,14 +9,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 **Technology Stack:**
 - HTML5 for semantic markup
 - CSS3 with CSS variables for theming
+- Vanilla JavaScript for interactivity (no frameworks)
 - Font Awesome 6.4.0 for icons
 - Google Fonts: Playfair Display (headings) and Raleway (body text)
-- No build process, framework, or dependencies
+- No build process or npm dependencies
 
-**Project Files (12 total, ~118KB):**
+**Project Files (18 total):**
 - 6 HTML pages (front-end interfaces)
-- 5 CSS files (styling)
-- No JavaScript files
+- 8 CSS files (styling - 1 global, 1 components, 6 page-specific)
+- 1 shared JavaScript file (common functions)
 
 ## Architecture & Organization
 
@@ -56,26 +57,45 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 **Styling Approach:**
 - Each page has a dedicated CSS file (e.g., `login.html` + `login.css`)
 - All pages import `styles/global.css` for base styles
+- All pages also import `styles/components.css` for shared UI components
 - Responsive design using flexbox and grid
 - Mobile-first approach with viewport meta tags
 - Backdrop filters and gradient effects for modern aesthetics
+
+### JavaScript Architecture
+
+**shared.js** contains reusable functions for all pages:
+- **Navigation Functions:** `toggleNavPopup()`, `closeNavPopup()` - Handle navigation popup visibility
+- **Modal Functions:** `closeNoteModal()`, `closePrintModal()` - Manage modal dialogs (used by order and reservation pages)
+- **Form Validation Helpers:** `validateEmail()`, `validatePhone()` - Email and phone number validation
+- **Event Initialization:** DOMContentLoaded handler for global overlay/Escape key close behavior
+
+**Usage Pattern:**
+- Include `<script src="shared.js" defer></script>` in each HTML page
+- Load shared.js before page-specific JavaScript if any
+- All functions are global and accessible from inline handlers or external scripts
 
 ## Development Workflow
 
 ### Adding New Pages
 
 1. Create `page_name.html` with:
-   - Same DOCTYPE and meta setup as existing pages
-   - Import `styles/global.css` first
-   - Import `styles/page_name.css` second
+   - Same DOCTYPE and meta setup as existing pages (see login.html for template)
+   - Import order: `global.css` → `components.css` → `page_name.css` → `shared.js`
    - Font Awesome CDN link (already in all pages)
+   - Link to `shared.js` with `defer` attribute for shared functions
 
 2. Create `styles/page_name.css` with:
    - Page-specific styles only
    - Reference CSS variables from `global.css`
    - Use existing animation patterns (slideUp, slideInLeft, etc.)
 
-3. Follow the color scheme: burgundy for headings/primary actions, beige for backgrounds, gold for accents
+3. Add page-specific JavaScript if needed (after shared.js in import order):
+   - Functions should not conflict with shared.js functions
+   - Prefix custom functions with page identifier (e.g., `orderPageInit()`)
+   - Attach event listeners in DOMContentLoaded handler
+
+4. Follow the color scheme: burgundy for headings/primary actions, beige for backgrounds, gold for accents
 
 ### Modifying Styles
 
@@ -89,10 +109,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Reference color variables instead of hardcoding hex values
 
 **Common Classes Across Pages:**
-- `.container` - Main content wrapper (90% width, max 960px, centered)
-- `.form-group` - Form field wrapper
+- `.container` - Main content wrapper (90% width, max 1600px, centered, with background and shadow)
+- `.form-group` - Form field wrapper with consistent spacing
 - `.form-label`, `.form-input` - Label and input styling
 - `.branded-header` - Header section with logo and branding
+- Navigation popup: `#navPopup`, `#navOverlay`, `.active` (toggle with `toggleNavPopup()`)
+- Modals: `.modal`, `.modal.active` (close with modal-specific functions)
+
+**JavaScript Patterns:**
+- Form validation: Call `validateEmail()` or `validatePhone()` during form submission
+- Popup toggles: Use `toggleNavPopup()` on button click, `closeNavPopup()` to close
+- Modal dialogs: Use `closeNoteModal()` or `closePrintModal()` to dismiss
+- All event listeners in shared.js automatically handle overlay clicks and Escape key
 
 ### Responsive Design
 
@@ -103,11 +131,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Testing & Validation
 
-**Since this is a static HTML/CSS project:**
-- No automated tests or build process
-- Manual browser testing recommended across modern browsers (Chrome, Firefox, Safari, Edge)
+**Manual Testing (No Build Process):**
+- Open HTML files directly in browser or use a local server (e.g., `python -m http.server 8000`)
+- Test across modern browsers: Chrome, Firefox, Safari, Edge
 - Test responsive design at breakpoints: mobile (320px), tablet (768px), desktop (1200px)
-- Validate CSS for proper variable usage and color consistency
+
+**Validation Checklist:**
+- CSS: Verify all color variables are used consistently, no hardcoded hex values
+- JavaScript: Test form validation, popup/modal functionality, Escape key close
+- Forms: Verify email/phone validation triggers correctly on login and register pages
+- Navigation: Test popup open/close on all pages that have navigation
+- Modals: Test modal open/close on order and reservation pages
+- Responsive: Check layout at mobile, tablet, and desktop sizes
 
 ## Common Modifications
 
@@ -131,17 +166,38 @@ Modify heading sizes in `styles/global.css`:
 - Icon gallery: https://fontawesome.com/icons
 - Already included in all pages via CDN
 
+## Quick Development Commands
+
+**Start local server (for testing):**
+```bash
+# Python 3
+python -m http.server 8000
+
+# Node.js
+npx http-server
+```
+
+**View changes before committing:**
+```bash
+git status                      # See modified files
+git diff styles/global.css     # View CSS changes
+git diff login.html            # View HTML changes
+```
+
 ## Git Workflow
 
-Current commits show incremental development:
-- `a1cff1b` - Initial project setup
-- `fdeb189` - Font Awesome and styling updates
-- `ea4d2c7` - Refactor reservation and billing pages with branding updates
-
 When making changes:
-- Commit CSS updates separately from HTML structure changes
-- Group related page changes together (e.g., all form pages)
-- Use descriptive messages: "Update order page styles" or "Add responsive design to reception page"
+- **CSS-only updates:** Commit separately (e.g., "Enhance search bar styles for mobile UX")
+- **HTML structure changes:** Separate from CSS commits (e.g., "Add customer note section to bill page")
+- **JavaScript updates:** Group with related page changes (e.g., "Implement shared validation functions")
+- **Multi-page changes:** Group related pages together (e.g., "Update auth pages - login and register")
+- Use descriptive messages with specifics: "Fix search-bar responsive design" not just "Fix styles"
+
+**Recent commits show active areas:**
+- Form validation and error handling (login, register)
+- Responsive design refinement (search bar, card layouts)
+- Shared JavaScript extraction (moved popup functions to shared.js)
+- UI enhancements (date pickers, stats dashboards)
 
 ## Design Principles Observed
 

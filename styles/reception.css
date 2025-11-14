@@ -1,0 +1,477 @@
+/* Restaurant Reception - Bill Details Page Styles */
+
+:root {
+    --primary-dark: #800020;
+    --primary-light: #A52A2A;
+    --text-light: #ecf0f1;
+    --text-dark: #34495e;
+    --border-color: #bdc3c7;
+    --background-light: #f7fafc;
+    --status-danger-bg: #800020;
+    --status-danger-text: #fff;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-light);
+    color: var(--text-dark);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+/* Bill Container */
+.bill-container {
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+    border: 1px solid #e2e8f0;
+    overflow: hidden; /* To contain the header's border-radius */
+}
+
+/* Bill Header */
+.bill-header {
+    background-color: var(--primary-dark);
+    color: var(--text-light);
+    padding: 30px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.restaurant-info h1 {
+    font-size: 28px;
+    margin: 0 0 5px 0;
+    font-weight: 700;
+    color: var(--text-light);
+}
+
+.restaurant-info p {
+    margin: 0;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.bill-meta {
+    text-align: right;
+}
+
+.bill-meta h2 {
+    font-size: 20px;
+    margin: 0 0 5px 0;
+    color: var(--text-light);
+}
+
+.bill-meta p {
+    margin: 0;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* Content Padding */
+.content-padding {
+    padding: 30px 40px 40px;
+}
+
+/* Section Header */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--primary-dark);
+    margin: 0; /* Remove margin from h3 */
+}
+
+/* Detail Items */
+.detail-item {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.detail-item .label {
+    color: #566573;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.detail-item .value {
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--primary-dark);
+}
+
+/* Items Table */
+.items-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+.items-table th,
+.items-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.items-table thead {
+    background-color: var(--primary-dark);
+}
+
+.items-table th {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-light);
+    text-transform: uppercase;
+}
+
+.items-table td {
+    font-size: 15px;
+}
+
+.items-table .item-name {
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+/* Text Alignment Utilities */
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Totals Section */
+.totals-section {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.totals-table {
+    width: 45%;
+    font-size: 16px;
+}
+
+.totals-table td {
+    padding: 10px 0;
+}
+
+.totals-table .label {
+    color: #718096;
+}
+
+.totals-table .amount {
+    font-weight: 600;
+    text-align: right;
+}
+
+.grand-total {
+    font-size: 24px;
+    border-top: 2px solid var(--primary-dark);
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+.grand-total .label {
+    font-weight: 700;
+    color: var(--primary-dark);
+}
+
+.grand-total .amount {
+    font-weight: 700;
+    color: var(--primary-dark);
+}
+
+/* Customer Note Section */
+.customer-note-section {
+    padding: 20px 0;
+    margin: 20px 0;
+    border-top: 1px solid #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.note-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--primary-dark);
+    margin-bottom: 8px;
+}
+
+.note-content {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #566573;
+}
+
+/* Print Button Container */
+.print-button-container {
+    text-align: right;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #e2e8f0;
+}
+
+/* Print Button */
+.print-btn {
+    background-color: var(--primary-light);
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    font-family: 'Poppins', sans-serif;
+}
+
+.print-btn:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+.print-btn:focus {
+    outline: 2px solid var(--primary-light);
+    outline-offset: 2px;
+}
+
+.print-btn:active {
+    transform: translateY(0);
+}
+
+/* Table row hover effect */
+.items-table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.items-table tbody tr:hover {
+    background-color: #f7fafc;
+}
+
+/* Improve contrast for subtitle text */
+.restaurant-info p,
+.bill-meta p {
+    opacity: 0.9;
+}
+
+/* Animations */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+}
+
+/* Ensure long item names wrap properly */
+.items-table .item-name {
+    word-wrap: break-word;
+    word-break: break-word;
+    max-width: 200px;
+}
+
+/* Responsive Design - Tablets */
+@media (max-width: 768px) {
+    .bill-header {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .bill-meta {
+        text-align: left;
+    }
+
+    .content-padding {
+        padding: 20px;
+    }
+
+    .restaurant-info h1 {
+        font-size: 24px;
+    }
+
+    .section-title {
+        font-size: 18px;
+    }
+
+    .items-table th,
+    .items-table td {
+        padding: 12px 8px;
+        font-size: 14px;
+    }
+
+    .items-table th {
+        font-size: 12px;
+    }
+
+    .detail-item .label {
+        font-size: 16px;
+    }
+
+    .detail-item .value {
+        font-size: 20px;
+    }
+
+    .totals-table {
+        width: 60%;
+        font-size: 14px;
+    }
+
+    .totals-table .grand-total {
+        font-size: 20px;
+    }
+
+    .print-btn {
+        width: 100%;
+        padding: 14px 20px;
+        font-size: 15px;
+    }
+
+    .print-button-container {
+        margin-top: 30px;
+    }
+}
+
+/* Responsive Design - Mobile */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .bill-container {
+        border-radius: 8px;
+    }
+
+    .bill-header {
+        padding: 15px;
+    }
+
+    .content-padding {
+        padding: 15px;
+    }
+
+    .restaurant-info h1 {
+        font-size: 20px;
+        margin-bottom: 3px;
+    }
+
+    .restaurant-info p {
+        font-size: 12px;
+    }
+
+    .bill-meta h2 {
+        font-size: 16px;
+        margin-bottom: 3px;
+    }
+
+    .bill-meta p {
+        font-size: 12px;
+    }
+
+    .section-header {
+        margin-bottom: 15px;
+    }
+
+    .section-title {
+        font-size: 16px;
+    }
+
+    .detail-item {
+        gap: 8px;
+    }
+
+    .detail-item .label {
+        font-size: 14px;
+    }
+
+    .detail-item .value {
+        font-size: 18px;
+    }
+
+    .items-table {
+        margin-bottom: 20px;
+        font-size: 12px;
+    }
+
+    .items-table th,
+    .items-table td {
+        padding: 10px 6px;
+    }
+
+    .items-table th {
+        font-size: 11px;
+    }
+
+    .items-table td {
+        font-size: 13px;
+    }
+
+    .totals-section {
+        justify-content: flex-end;
+    }
+
+    .totals-table {
+        width: 70%;
+        font-size: 13px;
+    }
+
+    .totals-table td {
+        padding: 8px 0;
+    }
+
+    .grand-total {
+        font-size: 18px;
+    }
+
+    .print-button-container {
+        margin-top: 20px;
+        padding-top: 15px;
+    }
+
+    .print-btn {
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    body {
+        background-color: white;
+        padding: 0;
+    }
+
+    .bill-container {
+        box-shadow: none;
+        max-width: 100%;
+    }
+
+    .print-button-container {
+        display: none;
+    }
+}

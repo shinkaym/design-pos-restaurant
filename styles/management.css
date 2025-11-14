@@ -1,0 +1,158 @@
+/* Shared Styles for Order and Reservation Management Pages */
+
+/* Management Section Container Styles */
+.orders-section,
+.reservations-section {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+}
+
+/* Responsive Design - Large Screens */
+@media (max-width: 1200px) {
+    .header-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .stats-group {
+        width: 100%;
+        justify-content: flex-start;
+    }
+}
+
+/* Responsive Design - Tablets */
+@media (max-width: 768px) {
+    .header-section {
+        margin-bottom: 25px;
+    }
+
+    .stat-card {
+        min-width: 120px;
+        padding: 15px 20px;
+    }
+
+    .stat-number {
+        font-size: 2em;
+    }
+
+    .section-header h2 {
+        font-size: 1.2em;
+    }
+
+    .cards-grid {
+        gap: 12px;
+    }
+
+    .order-card {
+        padding: 10px;
+    }
+
+    .btn-complete {
+        padding: 5px 10px;
+        font-size: 0.75em;
+    }
+
+    .nav-footer ul {
+        gap: 15px;
+    }
+}
+
+/* Responsive Design - Mobile */
+@media (max-width: 480px) {
+    .header-section {
+        margin-bottom: 20px;
+    }
+
+    .stats-group {
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .stat-card {
+        min-width: 100px;
+        padding: 12px 15px;
+    }
+
+    .stat-number {
+        font-size: 1.5em;
+        margin-bottom: 3px;
+    }
+
+    .stat-label {
+        font-size: 0.8em;
+    }
+
+    .search-bar {
+        padding: 12px 15px;
+        margin-bottom: 20px;
+    }
+
+    .search-bar input {
+        font-size: 0.95em;
+    }
+
+    .main-layout {
+        gap: 20px;
+    }
+
+    .orders-section,
+    .reservations-section {
+        padding: 12px;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    .section-header h2 {
+        font-size: 1em;
+    }
+
+    .badge-count {
+        padding: 4px 10px;
+        font-size: 0.85em;
+    }
+
+    .cards-grid {
+        gap: 10px;
+    }
+
+    .order-card {
+        padding: 8px;
+    }
+
+    .order-id {
+        font-size: 0.9em;
+    }
+
+    .customer-name {
+        font-size: 0.9em;
+    }
+
+    .order-items {
+        font-size: 0.75em;
+    }
+
+    .order-price {
+        font-size: 1em;
+    }
+
+    .btn-complete {
+        padding: 6px 12px;
+        font-size: 0.75em;
+        width: 100%;
+    }
+
+    .nav-footer ul {
+        gap: 10px;
+    }
+
+    .nav-footer a {
+        font-size: 0.9em;
+    }
+}

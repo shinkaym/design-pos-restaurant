@@ -1,0 +1,301 @@
+/* Restaurant Bill (Receipt) Page Styles */
+
+body {
+    font-family: 'Inconsolata', monospace, sans-serif;
+    background-color: #f0f2f5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    color: #333;
+}
+
+/* Page Header */
+.page-header {
+    width: 100%;
+    background: linear-gradient(135deg, #800020, #a52a2a);
+    color: white;
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(128, 0, 32, 0.2);
+    animation: slideDown 0.6s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.logo-small {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+}
+
+.header-content h1 {
+    margin: 0;
+    font-size: 1.8em;
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 2px;
+}
+
+.header-content p {
+    margin: 5px 0 0;
+    opacity: 0.9;
+    font-size: 0.9em;
+}
+
+/* Receipt Container */
+.receipt-container {
+    width: 320px;
+    background-color: #fff;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.header {
+    text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed #999;
+}
+
+.header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.header p {
+    margin: 4px 0;
+    font-size: 13px;
+}
+
+/* Bill Details */
+.bill-details {
+    padding: 15px 0;
+    border-bottom: 1px dashed #999;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Items Section */
+.items {
+    padding: 15px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.items-header,
+.item-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+}
+
+.items-header {
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.item-row {
+    margin-bottom: 8px;
+}
+
+.item-name {
+    flex-grow: 1;
+    padding-right: 10px;
+}
+
+.item-qty {
+    width: 40px;
+    text-align: center;
+}
+
+.item-price {
+    width: 70px;
+    text-align: right;
+}
+
+/* Totals Section */
+.totals {
+    padding: 15px 0;
+    font-size: 14px;
+}
+
+.total-line {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.total-line .label {
+    font-weight: 400;
+}
+
+.total-line .amount {
+    font-weight: 700;
+}
+
+.grand-total {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #ccc;
+}
+
+.grand-total .label {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.grand-total .amount {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+/* Customer Note Section */
+.customer-note-section {
+    padding: 15px 0;
+    border-bottom: 1px dashed #999;
+    border-top: 1px dashed #999;
+}
+
+.note-label {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.note-content {
+    font-size: 12px;
+    line-height: 1.5;
+    color: #555;
+}
+
+/* Tip Suggestion */
+.tip-suggestion {
+    padding: 15px 0;
+    border-bottom: 1px dashed #999;
+}
+
+.tip-suggestion h3 {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.tip-options {
+    display: flex;
+    justify-content: space-around;
+    font-size: 13px;
+}
+
+.tip-option {
+    text-align: center;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding-top: 15px;
+}
+
+.footer .thank-you {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.footer .qr-code {
+    margin: 10px 0;
+}
+
+.footer .qr-code img {
+    width: 80px;
+    height: 80px;
+}
+
+.footer p {
+    font-size: 12px;
+    margin: 4px 0;
+}
+
+/* Print Button */
+.print-btn {
+    display: block;
+    width: 100%;
+    margin-top: 25px;
+    padding: 12px;
+    background: linear-gradient(135deg, #800020, #a52a2a);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 1px;
+    transition: all 0.3s;
+    box-shadow: 0 4px 12px rgba(128, 0, 32, 0.25);
+}
+
+.print-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(128, 0, 32, 0.35);
+}
+
+.print-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(128, 0, 32, 0.15);
+}
+
+/* Print Media Query */
+@media print {
+    body {
+        background-color: #fff;
+        padding: 0;
+    }
+    .receipt-container {
+        box-shadow: none;
+        border-radius: 0;
+        width: 100%;
+        padding: 0;
+    }
+    .print-btn {
+        display: none;
+    }
+}
