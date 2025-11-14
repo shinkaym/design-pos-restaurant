@@ -408,85 +408,56 @@
             const windowWidth = window.innerWidth;
             const cardsGrids = document.querySelectorAll('.cards-grid'); // Move here for dynamic selection
 
-            console.log('=== updateLayout DEBUG ===');
-            console.log('isCompleted:', isCompleted);
-            console.log('windowWidth:', windowWidth);
-            console.log('cardsGrids count:', cardsGrids.length);
-            console.log('cardsGrids:', cardsGrids);
 
             if (isCompleted) {
-                console.log('Mode: BOTH LISTS (Pending + Completed)');
                 // Showing both Pending and Completed
                 if (windowWidth < 768) {
                     // Mobile: stack vertically, 1 card per row
-                    console.log('→ <768px: mainLayout=1fr, cards=1fr');
                     mainLayout.style.gridTemplateColumns = '1fr';
                     cardsGrids.forEach((grid, idx) => {
-                        console.log(`Grid ${idx} before:`, grid.style.gridTemplateColumns);
                         grid.style.setProperty('grid-template-columns', '1fr', 'important');
-                        console.log(`Grid ${idx} after:`, grid.style.gridTemplateColumns);
                     });
                 } else if (windowWidth < 1400) {
                     // Tablet: 2 columns, 1 card per row each
-                    console.log('→ 768-1400px: mainLayout=1fr 1fr, cards=1fr');
                     mainLayout.style.gridTemplateColumns = '1fr 1fr';
                     cardsGrids.forEach((grid, idx) => {
-                        console.log(`Grid ${idx} before:`, grid.style.gridTemplateColumns);
                         grid.style.setProperty('grid-template-columns', '1fr', 'important');
-                        console.log(`Grid ${idx} after:`, grid.style.gridTemplateColumns);
                     });
                 } else {
                     // Desktop: 2 columns, 2 cards per row each
-                    console.log('→ >1400px: mainLayout=1fr 1fr, cards=repeat(2,1fr)');
                     mainLayout.style.gridTemplateColumns = '1fr 1fr';
                     cardsGrids.forEach((grid, idx) => {
-                        console.log(`Grid ${idx} before:`, grid.style.gridTemplateColumns);
                         grid.style.setProperty('grid-template-columns', 'repeat(2, 1fr)', 'important');
-                        console.log(`Grid ${idx} after:`, grid.style.gridTemplateColumns);
                     });
                 }
             } else {
-                console.log('Mode: SINGLE LIST (Pending only)');
                 // Showing only Pending
                 if (windowWidth < 480) {
                     // Mobile: 1 card per row
-                    console.log('→ <480px: mainLayout=1fr, cards=1fr');
                     mainLayout.style.gridTemplateColumns = '1fr';
                     cardsGrids.forEach((grid, idx) => {
-                        console.log(`Grid ${idx} before:`, grid.style.gridTemplateColumns);
                         grid.style.setProperty('grid-template-columns', '1fr', 'important');
-                        console.log(`Grid ${idx} after:`, grid.style.gridTemplateColumns);
                     });
                 } else if (windowWidth < 768) {
                     // Tablet: 2 cards per row
-                    console.log('→ 480-768px: mainLayout=1fr, cards=repeat(2,1fr)');
                     mainLayout.style.gridTemplateColumns = '1fr';
                     cardsGrids.forEach((grid, idx) => {
-                        console.log(`Grid ${idx} before:`, grid.style.gridTemplateColumns);
                         grid.style.setProperty('grid-template-columns', 'repeat(2, 1fr)', 'important');
-                        console.log(`Grid ${idx} after:`, grid.style.gridTemplateColumns);
                     });
                 } else if (windowWidth < 1400) {
                     // Tablet+: 3 cards per row
-                    console.log('→ 768-1400px: mainLayout=1fr, cards=repeat(3,1fr)');
                     mainLayout.style.gridTemplateColumns = '1fr';
                     cardsGrids.forEach((grid, idx) => {
-                        console.log(`Grid ${idx} before:`, grid.style.gridTemplateColumns);
                         grid.style.setProperty('grid-template-columns', 'repeat(3, 1fr)', 'important');
-                        console.log(`Grid ${idx} after:`, grid.style.gridTemplateColumns);
                     });
                 } else {
                     // Desktop: 4 cards per row
-                    console.log('→ >1400px: mainLayout=1fr, cards=repeat(4,1fr)');
                     mainLayout.style.gridTemplateColumns = '1fr';
                     cardsGrids.forEach((grid, idx) => {
-                        console.log(`Grid ${idx} before:`, grid.style.gridTemplateColumns);
                         grid.style.setProperty('grid-template-columns', 'repeat(4, 1fr)', 'important');
-                        console.log(`Grid ${idx} after:`, grid.style.gridTemplateColumns);
                     });
                 }
             }
-            console.log('=== END DEBUG ===\n');
         }
 
         // Initial layout

@@ -41,63 +41,6 @@
     justify-content: center;
 }
 
-.action-btn {
-    flex: 1;
-    padding: 8px 6px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.9em;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: 600;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.action-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
-}
-
-.action-btn:active {
-    transform: translateY(0);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-}
-
-.print-btn {
-    background: linear-gradient(135deg, #2196F3, #1976D2);
-}
-
-.print-btn:hover {
-    background: linear-gradient(135deg, #1976D2, #1565C0);
-}
-
-.done-btn {
-    background: linear-gradient(135deg, #4CAF50, #388E3C);
-}
-
-.done-btn:hover {
-    background: linear-gradient(135deg, #388E3C, #2E7D32);
-}
-
-.delete-btn {
-    background: linear-gradient(135deg, #F44336, #D32F2F);
-}
-
-.delete-btn:hover {
-    background: linear-gradient(135deg, #D32F2F, #C62828);
-}
-
-.note-btn {
-    background: linear-gradient(135deg, #FF9800, #F57C00);
-}
-
-.note-btn:hover {
-    background: linear-gradient(135deg, #F57C00, #E65100);
-}
 
 .orders-section {
     background: #f9f9f9;
@@ -131,7 +74,6 @@
     display: grid;
     gap: 30px;
     margin-bottom: 20px;
-    /* grid-template-columns controlled by JavaScript */
 }
 
 /* Header Section */
@@ -146,14 +88,6 @@
 /* Navigation Popup styles are in global.css */
 
 /* Responsive Design */
-@media (max-width: 1600px) {
-    /* Cards grid controlled by JavaScript */
-}
-
-@media (max-width: 1400px) {
-    /* Cards grid controlled by JavaScript */
-}
-
 @media (max-width: 1200px) {
     .header-section {
         flex-direction: column;
@@ -164,12 +98,6 @@
         width: 100%;
         justify-content: flex-start;
     }
-
-    /* Cards grid controlled by JavaScript */
-}
-
-@media (max-width: 1024px) {
-    /* Cards grid controlled by JavaScript */
 }
 
 @media (max-width: 768px) {
@@ -267,7 +195,6 @@
 
     .cards-grid {
         gap: 10px;
-        /* Grid columns controlled by JavaScript */
     }
 
     .order-card {
