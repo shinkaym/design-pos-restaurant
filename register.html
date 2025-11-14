@@ -24,7 +24,7 @@
             </div>
 
             <!-- Register Form -->
-            <form class="register-form" id="registerForm">
+            <form class="register-form" id="registerForm" novalidate>
                 <!-- Row 1: Username & Password -->
                 <div class="form-row">
                     <div class="form-group">
@@ -36,6 +36,7 @@
                             <input type="text" id="username" name="username" class="form-input" placeholder="Choose a username" required>
                             <span class="input-focus-bg"></span>
                         </div>
+                        <span class="error-message" id="username-error"></span>
                     </div>
 
                     <div class="form-group">
@@ -47,6 +48,7 @@
                             <input type="password" id="password" name="password" class="form-input" placeholder="Create password" required>
                             <span class="input-focus-bg"></span>
                         </div>
+                        <span class="error-message" id="password-error"></span>
                     </div>
                 </div>
 
@@ -61,6 +63,7 @@
                             <input type="email" id="email" name="email" class="form-input" placeholder="Your email address" required>
                             <span class="input-focus-bg"></span>
                         </div>
+                        <span class="error-message" id="email-error"></span>
                     </div>
                 </div>
 
@@ -75,6 +78,7 @@
                             <input type="text" id="name" name="name" class="form-input" placeholder="Your full name" required>
                             <span class="input-focus-bg"></span>
                         </div>
+                        <span class="error-message" id="name-error"></span>
                     </div>
 
                     <div class="form-group">
@@ -86,6 +90,7 @@
                             <input type="tel" id="phone" name="phone" class="form-input" placeholder="Your phone number" required>
                             <span class="input-focus-bg"></span>
                         </div>
+                        <span class="error-message" id="phone-error"></span>
                     </div>
                 </div>
 
@@ -100,6 +105,7 @@
                             <input type="text" id="address" name="address" class="form-input" placeholder="Street address" required>
                             <span class="input-focus-bg"></span>
                         </div>
+                        <span class="error-message" id="address-error"></span>
                     </div>
 
                     <div class="form-group">
@@ -111,6 +117,7 @@
                             <input type="text" id="city" name="city" class="form-input" placeholder="Your city" required>
                             <span class="input-focus-bg"></span>
                         </div>
+                        <span class="error-message" id="city-error"></span>
                     </div>
                 </div>
 
@@ -125,6 +132,7 @@
                             <input type="text" id="state" name="state" class="form-input" placeholder="State/Province" required>
                             <span class="input-focus-bg"></span>
                         </div>
+                        <span class="error-message" id="state-error"></span>
                     </div>
 
                     <div class="form-group">
@@ -136,6 +144,7 @@
                             <input type="text" id="zip_code" name="zip_code" class="form-input" placeholder="Postal code" required>
                             <span class="input-focus-bg"></span>
                         </div>
+                        <span class="error-message" id="zip_code-error"></span>
                     </div>
                 </div>
 
@@ -210,6 +219,104 @@
         document.getElementById('navOverlay').addEventListener('click', closeNavPopup);
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeNavPopup();
+        });
+
+        // Form Validation
+        const form = document.getElementById('registerForm');
+        const fields = {
+            username: { min: 3, type: 'text' },
+            password: { min: 6, type: 'password' },
+            email: { type: 'email' },
+            name: { min: 2, type: 'text' },
+            phone: { min: 10, type: 'tel' },
+            address: { min: 5, type: 'text' },
+            city: { min: 2, type: 'text' },
+            state: { min: 2, type: 'text' },
+            zip_code: { min: 3, type: 'text' }
+        };
+
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function validatePhone(phone) {
+            const phoneRegex = /^\d{10,15}$/;
+            return phoneRegex.test(phone.replace(/\D/g, ''));
+        }
+
+        function validateField(fieldName) {
+            const field = document.getElementById(fieldName);
+            const value = field.value.trim();
+            const config = fields[fieldName];
+            const errorEl = document.getElementById(fieldName + '-error');
+            const successEl = document.getElementById(fieldName + '-success');
+            let isValid = true;
+            let errorMsg = '';
+
+            if (!value) {
+                errorMsg = `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1).replace('_', ' ')} is required`;
+                isValid = false;
+            } else if (config.min && value.length < config.min) {
+                errorMsg = `Must be at least ${config.min} characters`;
+                isValid = false;
+            } else if (config.type === 'email' && !validateEmail(value)) {
+                errorMsg = 'Please enter a valid email address';
+                isValid = false;
+            } else if (config.type === 'tel' && !validatePhone(value)) {
+                errorMsg = 'Please enter a valid phone number';
+                isValid = false;
+            }
+
+            if (isValid) {
+                field.classList.remove('input-error');
+                field.classList.add('input-valid');
+                errorEl.textContent = '';
+                errorEl.style.display = 'none';
+            } else {
+                field.classList.remove('input-valid');
+                field.classList.add('input-error');
+                errorEl.textContent = errorMsg;
+                errorEl.style.display = 'block';
+            }
+
+            return isValid;
+        }
+
+        // Validate on blur for all fields
+        Object.keys(fields).forEach(fieldName => {
+            const field = document.getElementById(fieldName);
+            field.addEventListener('blur', () => validateField(fieldName));
+
+            // Clear error on input
+            field.addEventListener('input', () => {
+                if (field.classList.contains('input-error')) {
+                    const errorEl = document.getElementById(fieldName + '-error');
+                    errorEl.style.display = 'none';
+                    field.classList.remove('input-error');
+                }
+            });
+        });
+
+        // Form submission
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            let allValid = true;
+            Object.keys(fields).forEach(fieldName => {
+                if (!validateField(fieldName)) {
+                    allValid = false;
+                }
+            });
+
+            if (allValid) {
+                alert('Account created successfully! (Demo mode)');
+                form.reset();
+                Object.keys(fields).forEach(fieldName => {
+                    const field = document.getElementById(fieldName);
+                    field.classList.remove('input-valid');
+                });
+            }
         });
     </script>
 </body>

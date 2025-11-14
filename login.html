@@ -24,7 +24,7 @@
             </div>
 
             <!-- Login Form -->
-            <form class="login-form" id="loginForm">
+            <form class="login-form" id="loginForm" novalidate>
                 <div class="form-group">
                     <label for="user_id" class="form-label">
                         <i class="fas fa-user"></i>
@@ -34,6 +34,7 @@
                         <input type="text" id="user_id" name="user_id" class="form-input" placeholder="Enter your user ID" required>
                         <span class="input-focus-bg"></span>
                     </div>
+                    <span class="error-message" id="user_id-error"></span>
                 </div>
 
                 <div class="form-group">
@@ -45,6 +46,7 @@
                         <input type="password" id="password" name="password" class="form-input" placeholder="Enter your password" required>
                         <span class="input-focus-bg"></span>
                     </div>
+                    <span class="error-message" id="password-error"></span>
                 </div>
 
                 <button type="submit" class="login-button">
@@ -119,6 +121,88 @@
         document.getElementById('navOverlay').addEventListener('click', closeNavPopup);
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeNavPopup();
+        });
+
+        // Form Validation
+        const form = document.getElementById('loginForm');
+        const userIdInput = document.getElementById('user_id');
+        const passwordInput = document.getElementById('password');
+
+        function validateField(field) {
+            const value = field.value.trim();
+            const fieldId = field.id;
+            const errorEl = document.getElementById(fieldId + '-error');
+            const successEl = document.getElementById(fieldId + '-success');
+            let isValid = true;
+            let errorMsg = '';
+
+            if (fieldId === 'user_id') {
+                if (!value) {
+                    errorMsg = 'User ID is required';
+                    isValid = false;
+                } else if (value.length < 3) {
+                    errorMsg = 'User ID must be at least 3 characters';
+                    isValid = false;
+                }
+            } else if (fieldId === 'password') {
+                if (!value) {
+                    errorMsg = 'Password is required';
+                    isValid = false;
+                } else if (value.length < 6) {
+                    errorMsg = 'Password must be at least 6 characters';
+                    isValid = false;
+                }
+            }
+
+            if (isValid) {
+                field.classList.remove('input-error');
+                field.classList.add('input-valid');
+                errorEl.textContent = '';
+                errorEl.style.display = 'none';
+            } else {
+                field.classList.remove('input-valid');
+                field.classList.add('input-error');
+                errorEl.textContent = errorMsg;
+                errorEl.style.display = 'block';
+            }
+
+            return isValid;
+        }
+
+        // Validate on blur
+        userIdInput.addEventListener('blur', () => validateField(userIdInput));
+        passwordInput.addEventListener('blur', () => validateField(passwordInput));
+
+        // Clear error on input
+        userIdInput.addEventListener('input', () => {
+            if (userIdInput.classList.contains('input-error')) {
+                const errorEl = document.getElementById('user_id-error');
+                errorEl.style.display = 'none';
+                userIdInput.classList.remove('input-error');
+            }
+        });
+
+        passwordInput.addEventListener('input', () => {
+            if (passwordInput.classList.contains('input-error')) {
+                const errorEl = document.getElementById('password-error');
+                errorEl.style.display = 'none';
+                passwordInput.classList.remove('input-error');
+            }
+        });
+
+        // Form submission
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const isUserIdValid = validateField(userIdInput);
+            const isPasswordValid = validateField(passwordInput);
+
+            if (isUserIdValid && isPasswordValid) {
+                alert('Login successful! (Demo mode)');
+                form.reset();
+                userIdInput.classList.remove('input-valid');
+                passwordInput.classList.remove('input-valid');
+            }
         });
     </script>
 </body>

@@ -91,6 +91,74 @@
     background: #fafafa;
 }
 
+/* Validation States */
+.form-input.input-error {
+    border-color: #dc3545;
+    background: rgba(220, 53, 69, 0.05);
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
+
+.form-input.input-error:focus {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.1), 0 4px 15px rgba(220, 53, 69, 0.2);
+}
+
+.form-input.input-valid {
+    border-color: #28a745;
+    background: rgba(40, 167, 69, 0.05);
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+}
+
+.form-input.input-valid:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 0 4px rgba(40, 167, 69, 0.1), 0 4px 15px rgba(40, 167, 69, 0.2);
+}
+
+/* Error Message */
+.error-message {
+    display: none;
+    color: #dc3545;
+    font-size: 0.8em;
+    margin-top: 6px;
+    margin-left: 2px;
+    animation: slideDown 0.3s ease-out;
+}
+
+.error-message::before {
+    content: '✕ ';
+    font-weight: 600;
+}
+
+/* Success Icon */
+.success-icon {
+    display: none;
+    color: #28a745;
+    font-size: 0.85em;
+    margin-top: 6px;
+    margin-left: 2px;
+    animation: slideDown 0.3s ease-out;
+}
+
+.success-icon i {
+    margin-right: 4px;
+}
+
+/* Form Group with Error State */
+.form-group {
+    position: relative;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* Button */
 .login-button {
     width: 100%;
