@@ -213,6 +213,11 @@
         let completedOrders = [];
         let filteredOrders = [...orders];
 
+        // Refresh function
+        function refreshOrders() {
+            filterByDate();
+        }
+
         function updateOrderCounts() {
             const pendingCount = orders.filter(o => o.status === 'Pending').length;
             const doneCount = completedOrders.length;
@@ -303,7 +308,7 @@
 
             // If no completed orders, show empty state
             if (displayOrders.filter(o => o.status === 'Done').length === 0) {
-                completedOrdersContainer.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i> <p>No completed orders</p></div>';
+                completedOrdersContainer.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i> <p>No done orders</p></div>';
             }
         }
 
@@ -388,15 +393,6 @@
 
             updateOrderCounts();
             renderOrders(filteredOrders);
-        }
-
-        // Refresh function
-        function refreshOrders() {
-            document.getElementById('date-picker').value = '';
-            filteredOrders = [...orders];
-            updateOrderCounts();
-            renderOrders();
-            renderCompletedOrders();
         }
 
         // Add event listener for date picker
@@ -523,6 +519,11 @@
                 completedOrders = JSON.parse(storedCompletedOrders);
             }
         }
+
+        // Set date picker to today by default
+        const todayISO = new Date().toISOString().split('T')[0];
+        document.getElementById('date-picker').value = todayISO;
+        filterByDate();
 
         // Initial render
         updateOrderCounts();

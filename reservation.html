@@ -216,6 +216,11 @@
         let completedReservations = [];
         let filteredReservations = [...reservations];
 
+        // Refresh function
+        function refreshReservations() {
+            filterByDate();
+        }
+
         function updateReservationCounts() {
             const pendingCount = reservations.filter(r => r.status === 'Pending').length;
             const completedCount = completedReservations.length;
@@ -319,7 +324,7 @@
 
             // If no completed reservations, show empty state
             if (displayReservations.filter(r => r.status === 'Done').length === 0) {
-                completedReservationsContainer.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i> <p>No completed reservations</p></div>';
+                completedReservationsContainer.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i> <p>No done reservations</p></div>';
             }
         }
 
@@ -407,15 +412,6 @@
 
             updateReservationCounts();
             renderReservations(filteredReservations);
-        }
-
-        // Refresh function
-        function refreshReservations() {
-            document.getElementById('date-picker').value = '';
-            filteredReservations = [...reservations];
-            updateReservationCounts();
-            renderReservations();
-            renderCompletedReservations();
         }
 
         // Add event listener for date picker
@@ -534,6 +530,11 @@
         if (storedCompletedReservations) {
             completedReservations = JSON.parse(storedCompletedReservations);
         }
+
+        // Set date picker to today by default
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('date-picker').value = today;
+        filterByDate();
 
         // Initial render
         updateReservationCounts();
