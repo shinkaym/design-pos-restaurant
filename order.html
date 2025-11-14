@@ -45,7 +45,7 @@
                     </div>
                     <div class="stat-card completed-stat">
                         <span class="stat-number" id="completed-orders-count">0</span>
-                        <span class="stat-label">Completed</span>
+                        <span class="stat-label">Done</span>
                         <i class="fas fa-eye stat-toggle-icon"></i>
                     </div>
                 </div>
@@ -74,15 +74,12 @@
                 <!-- Completed Orders Section (Hidden by default) -->
                 <div class="orders-section" id="completed-orders-section" style="display: none;">
                     <div class="section-header">
-                        <h2><i class="fas fa-check-circle"></i> Completed Orders</h2>
+                        <h2><i class="fas fa-check-circle"></i> Done Orders</h2>
                         <span class="badge-count completed-badge" id="completed-badge">0</span>
                     </div>
                     <div id="completed-orders-container" class="cards-grid">
                         <!-- Completed orders will be displayed as cards here -->
                     </div>
-                    <button onclick="clearOrders()" class="clear-btn" style="margin-top: 20px;">
-                        <i class="fas fa-trash"></i> Clear Completed Orders
-                    </button>
                 </div>
             </div>
 
@@ -218,14 +215,14 @@
 
         function updateOrderCounts() {
             const pendingCount = orders.filter(o => o.status === 'Pending').length;
-            const completedCount = completedOrders.length;
-            const total = pendingCount + completedCount;
+            const doneCount = completedOrders.length;
+            const total = pendingCount + doneCount;
 
             totalOrdersSpan.textContent = total;
             pendingOrdersSpan.textContent = pendingCount;
-            completedOrdersCountSpan.textContent = completedCount;
+            completedOrdersCountSpan.textContent = doneCount;
             pendingBadge.textContent = pendingCount;
-            completedBadge.textContent = completedCount;
+            completedBadge.textContent = doneCount;
         }
 
         function renderOrders(ordersToRender = null) {
@@ -281,13 +278,13 @@
             const displayOrders = ordersToRender || completedOrders;
             completedOrdersContainer.innerHTML = '';
 
-            displayOrders.filter(o => o.status === 'Completed').forEach((order, index) => {
+            displayOrders.filter(o => o.status === 'Done').forEach((order, index) => {
                 const card = document.createElement('div');
                 card.classList.add('order-card', 'completed');
                 card.innerHTML = `
                     <div class="card-header">
                         <span class="order-id">${order.id}</span>
-                        <span class="status-badge"><i class="fas fa-check-circle"></i> Completed</span>
+                        <span class="status-badge"><i class="fas fa-check-circle"></i> Done</span>
                     </div>
                     <div class="card-body">
                         <h3 class="customer-name">${order.customer}</h3>
@@ -305,23 +302,14 @@
             });
 
             // If no completed orders, show empty state
-            if (displayOrders.filter(o => o.status === 'Completed').length === 0) {
+            if (displayOrders.filter(o => o.status === 'Done').length === 0) {
                 completedOrdersContainer.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i> <p>No completed orders</p></div>';
-            }
-        }
-
-        function clearOrders() {
-            if (confirm('Are you sure you want to clear all completed orders?')) {
-                completedOrders = [];
-                sessionStorage.setItem('completedOrders', JSON.stringify(completedOrders));
-                updateOrderCounts();
-                renderCompletedOrders();
             }
         }
 
         function completeOrder(index) {
             const order = orders[index];
-            order.status = 'Completed';
+            order.status = 'Done';
             completedOrders.push({ ...order });
             orders.splice(index, 1);
             sessionStorage.setItem('completedOrders', JSON.stringify(completedOrders));
