@@ -105,6 +105,52 @@
         </nav>
     </div>
 
+    <!-- Note Editor Modal -->
+    <div class="modal" id="noteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-sticky-note"></i> Edit Order Note</h2>
+                <button class="modal-close-btn" onclick="closeNoteModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <textarea class="modal-textarea" id="noteInput" placeholder="Add notes for this order..."></textarea>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn modal-btn-secondary" onclick="closeNoteModal()">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button class="modal-btn modal-btn-primary" onclick="saveNote()">
+                    <i class="fas fa-save"></i> Save Note
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Print Preview Modal -->
+    <div class="modal" id="printModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-print"></i> Order Details</h2>
+                <button class="modal-close-btn" onclick="closePrintModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-print-content" id="printContent"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn modal-btn-secondary" onclick="closePrintModal()">
+                    <i class="fas fa-times"></i> Close
+                </button>
+                <button class="modal-btn modal-btn-primary" onclick="window.print()">
+                    <i class="fas fa-print"></i> Print
+                </button>
+            </div>
+        </div>
+    </div>
+
     <button class="nav-popup-btn" onclick="toggleNavPopup()">
         <i class="fas fa-bars"></i>
     </button>
@@ -282,23 +328,50 @@
         function printOrder(index) {
             const order = orders[index];
             const printContent = `
-                Order ID: ${order.id}
-                Customer: ${order.customer}
-                Items: ${order.items}
-                Price: ${order.price}
-                Time: ${order.time}
-                Note: ${order.note || 'No notes'}
+                <p><strong>Order ID:</strong> ${order.id}</p>
+                <p><strong>Customer:</strong> ${order.customer}</p>
+                <p><strong>Items:</strong> ${order.items}</p>
+                <p><strong>Price:</strong> ${order.price}</p>
+                <p><strong>Time:</strong> ${order.time}</p>
+                <p><strong>Note:</strong> ${order.note || 'No notes'}</p>
             `;
-            alert('Print preview:\n\n' + printContent);
+            document.getElementById('printContent').innerHTML = printContent;
+            document.getElementById('printModal').classList.add('active');
         }
 
+        function closePrintModal() {
+            document.getElementById('printModal').classList.remove('active');
+        }
+
+        let currentNoteIndex = null;
+
         function editNote(index) {
-            const newNote = prompt('Enter note for this order:', orders[index].note || '');
-            if (newNote !== null) {
-                orders[index].note = newNote;
+            currentNoteIndex = index;
+            document.getElementById('noteInput').value = orders[index].note || '';
+            document.getElementById('noteModal').classList.add('active');
+            document.getElementById('noteInput').focus();
+        }
+
+        function closeNoteModal() {
+            document.getElementById('noteModal').classList.remove('active');
+            currentNoteIndex = null;
+        }
+
+        function saveNote() {
+            if (currentNoteIndex !== null) {
+                orders[currentNoteIndex].note = document.getElementById('noteInput').value;
                 renderOrders(filteredOrders);
+                closeNoteModal();
             }
         }
+
+        // Modal keyboard handlers
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeNoteModal();
+                closePrintModal();
+            }
+        });
 
         // Toggle completed orders section when clicking the completed stat card
         const mainLayout = document.querySelector('.main-layout');

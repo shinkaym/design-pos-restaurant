@@ -105,6 +105,52 @@
         </nav>
     </div>
 
+    <!-- Note Editor Modal -->
+    <div class="modal" id="noteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-sticky-note"></i> Edit Reservation Note</h2>
+                <button class="modal-close-btn" onclick="closeNoteModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <textarea class="modal-textarea" id="noteInput" placeholder="Add notes for this reservation..."></textarea>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn modal-btn-secondary" onclick="closeNoteModal()">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button class="modal-btn modal-btn-primary" onclick="saveNote()">
+                    <i class="fas fa-save"></i> Save Note
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Print Preview Modal -->
+    <div class="modal" id="printModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-print"></i> Reservation Details</h2>
+                <button class="modal-close-btn" onclick="closePrintModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-print-content" id="printContent"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn modal-btn-secondary" onclick="closePrintModal()">
+                    <i class="fas fa-times"></i> Close
+                </button>
+                <button class="modal-btn modal-btn-primary" onclick="window.print()">
+                    <i class="fas fa-print"></i> Print
+                </button>
+            </div>
+        </div>
+    </div>
+
     <button class="nav-popup-btn" onclick="toggleNavPopup()">
         <i class="fas fa-bars"></i>
     </button>
@@ -280,6 +326,7 @@
             reservation.status = 'Completed';
             completedReservations.push({...reservation});
             reservations.splice(index, 1);
+            filteredReservations = [...reservations];
             localStorage.setItem('completedReservations', JSON.stringify(completedReservations));
             updateReservationCounts();
             renderReservations(filteredReservations);
@@ -289,6 +336,7 @@
         function deleteReservation(index) {
             if (confirm('Are you sure you want to delete this reservation?')) {
                 reservations.splice(index, 1);
+                filteredReservations = [...reservations];
                 updateReservationCounts();
                 renderReservations(filteredReservations);
             }
@@ -297,24 +345,51 @@
         function printReservation(index) {
             const reservation = reservations[index];
             const printContent = `
-                Reservation ID: ${reservation.id}
-                Guest: ${reservation.guest}
-                Guests: ${reservation.guests}
-                Time: ${reservation.time}
-                Date: ${reservation.date}
-                Table: ${reservation.table}
-                Note: ${reservation.note || 'No notes'}
+                <p><strong>Reservation ID:</strong> ${reservation.id}</p>
+                <p><strong>Guest:</strong> ${reservation.guest}</p>
+                <p><strong>Guests:</strong> ${reservation.guests}</p>
+                <p><strong>Time:</strong> ${reservation.time}</p>
+                <p><strong>Date:</strong> ${reservation.date}</p>
+                <p><strong>Table:</strong> ${reservation.table}</p>
+                <p><strong>Note:</strong> ${reservation.note || 'No notes'}</p>
             `;
-            alert('Print preview:\n\n' + printContent);
+            document.getElementById('printContent').innerHTML = printContent;
+            document.getElementById('printModal').classList.add('active');
         }
 
+        function closePrintModal() {
+            document.getElementById('printModal').classList.remove('active');
+        }
+
+        let currentNoteIndex = null;
+
         function editNote(index) {
-            const newNote = prompt('Enter note for this reservation:', reservations[index].note || '');
-            if (newNote !== null) {
-                reservations[index].note = newNote;
+            currentNoteIndex = index;
+            document.getElementById('noteInput').value = reservations[index].note || '';
+            document.getElementById('noteModal').classList.add('active');
+            document.getElementById('noteInput').focus();
+        }
+
+        function closeNoteModal() {
+            document.getElementById('noteModal').classList.remove('active');
+            currentNoteIndex = null;
+        }
+
+        function saveNote() {
+            if (currentNoteIndex !== null) {
+                reservations[currentNoteIndex].note = document.getElementById('noteInput').value;
                 renderReservations(filteredReservations);
+                closeNoteModal();
             }
         }
+
+        // Modal keyboard handlers
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeNoteModal();
+                closePrintModal();
+            }
+        });
 
         // Toggle completed reservations section when clicking the completed stat card
         const mainLayout = document.querySelector('.main-layout');
