@@ -602,6 +602,118 @@ button.nav-popup-close:focus {
     align-items: center;
     gap: 12px;
     background: transparent;
+    padding: 0;
+    border-radius: 0;
+    border: none;
+    margin-bottom: 30px;
+    box-shadow: none;
+    transition: all 0.3s ease;
+    justify-content: flex-end;
+}
+
+.search-bar:focus-within {
+    border-color: transparent;
+    box-shadow: none;
+    outline: none;
+}
+
+.search-bar i {
+    color: #999;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    flex-shrink: 0;
+}
+
+.search-bar input {
+    flex: 0;
+    border: 2px solid #e0e0e0;
+    outline: none;
+    font-size: 1em;
+    font-family: 'Raleway', sans-serif;
+    padding: 10px 15px;
+    margin: 0;
+    background: white;
+    color: var(--text-color);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+    height: 42px;
+    line-height: 1.5;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.search-bar input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(128, 0, 32, 0.1);
+}
+
+.search-bar input::placeholder {
+    color: #bbb;
+}
+
+@keyframes spinIcon {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.refresh-btn {
+    padding: 8px 6px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #FF9800, #F57C00);
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+}
+
+.refresh-btn i {
+    color: white !important;
+    font-size: 1em !important;
+}
+
+.refresh-btn:hover {
+    background: linear-gradient(135deg, #F57C00, #E65100);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.refresh-btn:hover i {
+    animation: spinIcon 0.6s linear;
+}
+
+.refresh-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Shared Search Bar */
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: transparent;
     padding: 0 0 20px 0;
     border-radius: 0;
     border: none;

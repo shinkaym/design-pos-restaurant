@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reservation Management - POS System</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Raleway:wght@400;500;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles/global.css">
     <link rel="stylesheet" href="styles/reservation.css">
 </head>
+
 <body>
     <div class="main-wrapper">
         <div class="container">
@@ -46,32 +50,40 @@
                 </div>
             </div>
 
-        <div class="main-layout">
-            <!-- Pending Reservations Section -->
-            <div class="reservations-section">
-                <div class="section-header">
-                    <h2><i class="fas fa-hourglass-half"></i> Pending Reservations</h2>
-                    <span class="badge-count" id="pending-badge">0</span>
-                </div>
-                <div id="pending-reservations-container" class="cards-grid">
-                    <!-- Pending reservations will be displayed as cards here -->
-                </div>
-            </div>
-
-            <!-- Completed Reservations Section (Hidden by default) -->
-            <div class="reservations-section" id="completed-reservations-section" style="display: none;">
-                <div class="section-header">
-                    <h2><i class="fas fa-check-circle"></i> Completed Reservations</h2>
-                    <span class="badge-count completed-badge" id="completed-badge">0</span>
-                </div>
-                <div id="completed-reservations-container" class="cards-grid">
-                    <!-- Completed reservations will be displayed as cards here -->
-                </div>
-                <button onclick="clearReservations()" class="clear-btn" style="margin-top: 20px;">
-                    <i class="fas fa-trash"></i> Clear Completed
+            <div class="search-bar">
+                <i class="fas fa-calendar"></i>
+                <input type="date" id="date-picker">
+                <button class="refresh-btn" onclick="refreshReservations()" title="Refresh reservations">
+                    <i class="fas fa-redo"></i>
                 </button>
             </div>
-        </div>
+
+            <div class="main-layout">
+                <!-- Pending Reservations Section -->
+                <div class="reservations-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-hourglass-half"></i> Pending Reservations</h2>
+                        <span class="badge-count" id="pending-badge">0</span>
+                    </div>
+                    <div id="pending-reservations-container" class="cards-grid">
+                        <!-- Pending reservations will be displayed as cards here -->
+                    </div>
+                </div>
+
+                <!-- Completed Reservations Section (Hidden by default) -->
+                <div class="reservations-section" id="completed-reservations-section" style="display: none;">
+                    <div class="section-header">
+                        <h2><i class="fas fa-check-circle"></i> Completed Reservations</h2>
+                        <span class="badge-count completed-badge" id="completed-badge">0</span>
+                    </div>
+                    <div id="completed-reservations-container" class="cards-grid">
+                        <!-- Completed reservations will be displayed as cards here -->
+                    </div>
+                    <button onclick="clearReservations()" class="clear-btn" style="margin-top: 20px;">
+                        <i class="fas fa-trash"></i> Clear Completed
+                    </button>
+                </div>
+            </div>
 
         </div>
     </div>
@@ -115,7 +127,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <textarea class="modal-textarea" id="noteInput" placeholder="Add notes for this reservation..."></textarea>
+                <textarea class="modal-textarea" id="noteInput"
+                    placeholder="Add notes for this reservation..."></textarea>
             </div>
             <div class="modal-footer">
                 <button class="modal-btn modal-btn-secondary" onclick="closeNoteModal()">
@@ -191,16 +204,16 @@
         const completedStatCard = document.querySelector('.completed-stat');
 
         let reservations = [
-            { id: '#R001', guest: 'John Doe', guests: 2, time: '7:00 PM', date: 'Today', table: '5', status: 'Pending', note: '' },
-            { id: '#R002', guest: 'Jane Smith', guests: 4, time: '8:00 PM', date: 'Today', table: '12', status: 'Pending', note: '' },
-            { id: '#R003', guest: 'Alice Wonderland', guests: 1, time: '6:00 PM', date: 'Today', table: '2', status: 'Pending', note: '' },
-            { id: '#R004', guest: 'Bob Johnson', guests: 3, time: '7:30 PM', date: 'Today', table: '8', status: 'Pending', note: '' },
-            { id: '#R005', guest: 'Emily Chen', guests: 2, time: '8:30 PM', date: 'Today', table: '10', status: 'Pending', note: '' },
-            { id: '#R006', guest: 'Michael Brown', guests: 5, time: '6:30 PM', date: 'Today', table: '15', status: 'Pending', note: '' },
-            { id: '#R007', guest: 'Sarah Davis', guests: 2, time: '9:00 PM', date: 'Today', table: '7', status: 'Pending', note: '' },
-            { id: '#R008', guest: 'David Wilson', guests: 6, time: '7:15 PM', date: 'Today', table: '1,2', status: 'Pending', note: '' },
-            { id: '#R009', guest: 'Lisa Anderson', guests: 3, time: '8:15 PM', date: 'Today', table: '14', status: 'Pending', note: '' },
-            { id: '#R010', guest: 'James Taylor', guests: 2, time: '6:45 PM', date: 'Today', table: '4', status: 'Pending', note: '' },
+            { id: '#R001', guest: 'John Doe', guests: 2, time: '7:00 PM', date: '2025-11-14', table: '5', status: 'Pending', note: '' },
+            { id: '#R002', guest: 'Jane Smith', guests: 4, time: '8:00 PM', date: '2025-11-14', table: '12', status: 'Pending', note: '' },
+            { id: '#R003', guest: 'Alice Wonderland', guests: 1, time: '6:00 PM', date: '2025-11-14', table: '2', status: 'Pending', note: '' },
+            { id: '#R004', guest: 'Bob Johnson', guests: 3, time: '7:30 PM', date: '2025-11-14', table: '8', status: 'Pending', note: '' },
+            { id: '#R005', guest: 'Emily Chen', guests: 2, time: '8:30 PM', date: '2025-11-14', table: '10', status: 'Pending', note: '' },
+            { id: '#R006', guest: 'Michael Brown', guests: 5, time: '6:30 PM', date: '2025-11-14', table: '15', status: 'Pending', note: '' },
+            { id: '#R007', guest: 'Sarah Davis', guests: 2, time: '9:00 PM', date: '2025-11-14', table: '7', status: 'Pending', note: '' },
+            { id: '#R008', guest: 'David Wilson', guests: 6, time: '7:15 PM', date: '2025-11-14', table: '1,2', status: 'Pending', note: '' },
+            { id: '#R009', guest: 'Lisa Anderson', guests: 3, time: '8:15 PM', date: '2025-11-14', table: '14', status: 'Pending', note: '' },
+            { id: '#R010', guest: 'James Taylor', guests: 2, time: '6:45 PM', date: '2025-11-14', table: '4', status: 'Pending', note: '' },
         ];
         let completedReservations = [];
         let filteredReservations = [...reservations];
@@ -324,7 +337,7 @@
         function completeReservation(index) {
             const reservation = reservations[index];
             reservation.status = 'Completed';
-            completedReservations.push({...reservation});
+            completedReservations.push({ ...reservation });
             reservations.splice(index, 1);
             filteredReservations = [...reservations];
             localStorage.setItem('completedReservations', JSON.stringify(completedReservations));
@@ -390,6 +403,34 @@
                 closePrintModal();
             }
         });
+
+        // Date filtering function
+        function filterByDate() {
+            const datePickerValue = document.getElementById('date-picker').value;
+
+            if (!datePickerValue) {
+                // If no date selected, show all reservations
+                filteredReservations = [...reservations];
+            } else {
+                // Filter reservations by selected date
+                filteredReservations = reservations.filter(reservation => reservation.date === datePickerValue);
+            }
+
+            updateReservationCounts();
+            renderReservations(filteredReservations);
+        }
+
+        // Refresh function
+        function refreshReservations() {
+            document.getElementById('date-picker').value = '';
+            filteredReservations = [...reservations];
+            updateReservationCounts();
+            renderReservations();
+            renderCompletedReservations();
+        }
+
+        // Add event listener for date picker
+        document.getElementById('date-picker').addEventListener('change', filterByDate);
 
         // Toggle completed reservations section when clicking the completed stat card
         const mainLayout = document.querySelector('.main-layout');
@@ -507,4 +548,5 @@
         renderCompletedReservations();
     </script>
 </body>
+
 </html>
