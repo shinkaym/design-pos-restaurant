@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles/global.css">
     <link rel="stylesheet" href="styles/order.css">
+    <script src="shared.js" defer></script>
 </head>
 
 <body>
@@ -166,29 +167,6 @@
     </button>
 
     <script>
-        // Navigation Popup Functions
-        function toggleNavPopup() {
-            const popup = document.getElementById('navPopup');
-            const overlay = document.getElementById('navOverlay');
-            popup.classList.toggle('active');
-            overlay.classList.toggle('active');
-        }
-
-        function closeNavPopup() {
-            const popup = document.getElementById('navPopup');
-            const overlay = document.getElementById('navOverlay');
-            popup.classList.remove('active');
-            overlay.classList.remove('active');
-        }
-
-        // Close popup when clicking overlay
-        document.getElementById('navOverlay').addEventListener('click', closeNavPopup);
-
-        // Close popup when pressing Escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeNavPopup();
-        });
-
         // Orders Management Functions
         const totalOrdersSpan = document.getElementById('total-orders');
         const pendingOrdersSpan = document.getElementById('pending-orders');

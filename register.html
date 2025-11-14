@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles/global.css">
     <link rel="stylesheet" href="styles/register.css">
+    <script src="shared.js" defer></script>
 </head>
 <body>
     <div class="register-wrapper">
@@ -202,25 +203,6 @@
     </button>
 
     <script>
-        function toggleNavPopup() {
-            const popup = document.getElementById('navPopup');
-            const overlay = document.getElementById('navOverlay');
-            popup.classList.toggle('active');
-            overlay.classList.toggle('active');
-        }
-
-        function closeNavPopup() {
-            const popup = document.getElementById('navPopup');
-            const overlay = document.getElementById('navOverlay');
-            popup.classList.remove('active');
-            overlay.classList.remove('active');
-        }
-
-        document.getElementById('navOverlay').addEventListener('click', closeNavPopup);
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeNavPopup();
-        });
-
         // Form Validation
         const form = document.getElementById('registerForm');
         const fields = {
@@ -234,16 +216,6 @@
             state: { min: 2, type: 'text' },
             zip_code: { min: 3, type: 'text' }
         };
-
-        function validateEmail(email) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
-        }
-
-        function validatePhone(phone) {
-            const phoneRegex = /^\d{10,15}$/;
-            return phoneRegex.test(phone.replace(/\D/g, ''));
-        }
 
         function validateField(fieldName) {
             const field = document.getElementById(fieldName);

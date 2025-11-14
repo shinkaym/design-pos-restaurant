@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles/global.css">
     <link rel="stylesheet" href="styles/reservation.css">
+    <script src="shared.js" defer></script>
 </head>
 
 <body>
@@ -167,29 +168,6 @@
     </button>
 
     <script>
-        // Navigation Popup Functions
-        function toggleNavPopup() {
-            const popup = document.getElementById('navPopup');
-            const overlay = document.getElementById('navOverlay');
-            popup.classList.toggle('active');
-            overlay.classList.toggle('active');
-        }
-
-        function closeNavPopup() {
-            const popup = document.getElementById('navPopup');
-            const overlay = document.getElementById('navOverlay');
-            popup.classList.remove('active');
-            overlay.classList.remove('active');
-        }
-
-        // Close popup when clicking overlay
-        document.getElementById('navOverlay').addEventListener('click', closeNavPopup);
-
-        // Close popup when pressing Escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeNavPopup();
-        });
-
         // Reservations Management Functions
         const totalReservationsSpan = document.getElementById('total-reservations');
         const pendingReservationsSpan = document.getElementById('pending-reservations');
@@ -210,8 +188,6 @@
             { id: '#R006', guest: 'Michael Brown', guests: 5, time: '6:30 PM', date: '2025-11-14', table: '15', status: 'Pending', note: '' },
             { id: '#R007', guest: 'Sarah Davis', guests: 2, time: '9:00 PM', date: '2025-11-14', table: '7', status: 'Pending', note: '' },
             { id: '#R008', guest: 'David Wilson', guests: 6, time: '7:15 PM', date: '2025-11-14', table: '1,2', status: 'Pending', note: '' },
-            { id: '#R009', guest: 'Lisa Anderson', guests: 3, time: '8:15 PM', date: '2025-11-14', table: '14', status: 'Pending', note: '' },
-            { id: '#R010', guest: 'James Taylor', guests: 2, time: '6:45 PM', date: '2025-11-14', table: '4', status: 'Pending', note: '' },
         ];
         let completedReservations = [];
         let filteredReservations = [...reservations];
@@ -240,26 +216,16 @@
             displayReservations.filter(r => r.status === 'Pending').forEach((reservation, index) => {
                 const originalIndex = reservations.findIndex(r => r.id === reservation.id);
                 const card = document.createElement('div');
-                card.classList.add('reservation-card');
+                card.classList.add('order-card');
                 card.setAttribute('data-index', originalIndex);
                 card.innerHTML = `
                     <div class="card-header">
-                        <span class="reservation-id">${reservation.id}</span>
-                        <span class="reservation-time"><i class="fas fa-clock"></i> ${reservation.time}</span>
+                        <span class="order-id">${reservation.id}</span>
+                        <span class="order-time"><i class="fas fa-clock"></i> ${reservation.time}</span>
                     </div>
                     <div class="card-body">
-                        <h3 class="guest-name">${reservation.guest}</h3>
-                        <div class="reservation-details">
-                            <div class="detail">
-                                <i class="fas fa-users"></i>
-                                <span>${reservation.guests} ${reservation.guests === 1 ? 'guest' : 'guests'}</span>
-                            </div>
-                            <div class="detail">
-                                <i class="fas fa-chair"></i>
-                                <span>Table ${reservation.table}</span>
-                            </div>
-                        </div>
-                        <p class="reservation-date"><i class="fas fa-calendar"></i> ${reservation.date}</p>
+                        <h3 class="customer-name">${reservation.guest}</h3>
+                        <p class="order-items">${reservation.guests} ${reservation.guests === 1 ? 'guest' : 'guests'} • Table ${reservation.table}</p>
                         <div class="card-note-section">
                             <label>Note:</label>
                             <div class="note-display" data-index="${originalIndex}">${reservation.note || 'No notes'}</div>
@@ -295,24 +261,15 @@
 
             displayReservations.filter(r => r.status === 'Done').forEach((reservation, index) => {
                 const card = document.createElement('div');
-                card.classList.add('reservation-card', 'completed');
+                card.classList.add('order-card', 'completed');
                 card.innerHTML = `
                     <div class="card-header">
-                        <span class="reservation-id">${reservation.id}</span>
+                        <span class="order-id">${reservation.id}</span>
                         <span class="status-badge"><i class="fas fa-check-circle"></i> Done</span>
                     </div>
                     <div class="card-body">
-                        <h3 class="guest-name">${reservation.guest}</h3>
-                        <div class="reservation-details">
-                            <div class="detail">
-                                <i class="fas fa-users"></i>
-                                <span>${reservation.guests} ${reservation.guests === 1 ? 'guest' : 'guests'}</span>
-                            </div>
-                            <div class="detail">
-                                <i class="fas fa-chair"></i>
-                                <span>Table ${reservation.table}</span>
-                            </div>
-                        </div>
+                        <h3 class="customer-name">${reservation.guest}</h3>
+                        <p class="order-items">${reservation.guests} ${reservation.guests === 1 ? 'guest' : 'guests'} • Table ${reservation.table}</p>
                         <div class="card-note-section">
                             <label>Note:</label>
                             <div class="note-display">${reservation.note || 'No notes'}</div>

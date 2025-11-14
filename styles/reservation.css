@@ -1,47 +1,5 @@
 /* Reservation Page POS-Style Specific Styles */
 
-/* Main Wrapper */
-.main-wrapper {
-    position: relative;
-    overflow: hidden;
-}
-
-/* Card Note Section */
-.card-note-section {
-    margin: 8px 0;
-    padding: 8px 0;
-    border-top: 1px solid #f0f0f0;
-    border-bottom: 1px solid #f0f0f0;
-}
-
-.card-note-section label {
-    font-size: 0.75em;
-    margin: 0 0 4px 0;
-    color: #999;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.note-display {
-    font-size: 0.8em;
-    color: #555;
-    font-style: italic;
-    line-height: 1.4;
-    word-wrap: break-word;
-}
-
-/* Card Actions */
-.card-actions {
-    display: flex;
-    gap: 6px;
-    margin-top: 12px;
-    padding-top: 8px;
-    border-top: 1px solid #f0f0f0;
-    justify-content: center;
-}
-
-
 .reservations-section {
     background: #f9f9f9;
     padding: 20px;
@@ -49,62 +7,6 @@
     border: 1px solid #e0e0e0;
 }
 
-.title-group h2 {
-    margin: 0 0 4px 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--primary-color);
-    font-size: 1.8em;
-}
-
-.title-group h2 i {
-    font-size: 1.1em;
-}
-
-.subtitle {
-    margin: 0;
-    font-size: 0.85em;
-    opacity: 0.7;
-    color: #666;
-}
-
-/* Main Layout */
-.main-layout {
-    display: grid;
-    gap: 30px;
-    margin-bottom: 20px;
-}
-
-/* Header Section */
-.header-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 25px;
-    gap: 20px;
-}
-
-/* Reservation Details */
-.reservation-details {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-bottom: 8px;
-}
-
-.detail {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 0.8em;
-    color: #666;
-}
-
-.detail i {
-    color: var(--primary-color);
-    width: 14px;
-}
 
 /* Navigation Popup styles are in global.css */
 
@@ -143,7 +45,7 @@
         gap: 12px;
     }
 
-    .reservation-card {
+    .order-card {
         padding: 10px;
     }
 
@@ -218,28 +120,24 @@
         gap: 10px;
     }
 
-    .reservation-card {
+    .order-card {
         padding: 8px;
     }
 
-    .reservation-id {
+    .order-id {
         font-size: 0.9em;
     }
 
-    .guest-name {
+    .customer-name {
         font-size: 0.9em;
     }
 
-    .reservation-details {
-        gap: 6px;
-    }
-
-    .detail {
+    .order-items {
         font-size: 0.75em;
     }
 
-    .reservation-date {
-        font-size: 0.7em;
+    .order-price {
+        font-size: 1em;
     }
 
     .btn-complete {

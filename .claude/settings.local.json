@@ -7,7 +7,8 @@
       "Bash(git -C /c/Users/shinkaym/Downloads/12-11 add styles/global.css styles/order.css styles/reservation.css)",
       "Bash(git -C /c/Users/shinkaym/Downloads/12-11 commit -m \"Fix search-bar responsive design across all breakpoints; remove duplicate CSS\")",
       "Bash(git -C /c/Users/shinkaym/Downloads/12-11 add styles/global.css)",
-      "Bash(git -C /c/Users/shinkaym/Downloads/12-11 commit -m \"Center search-bar on mobile; hide calendar icon for better mobile UX\")"
+      "Bash(git -C /c/Users/shinkaym/Downloads/12-11 commit -m \"Center search-bar on mobile; hide calendar icon for better mobile UX\")",
+      "Bash(cat:*)"
     ],
     "deny": [
       "Bash(git add:*)",
