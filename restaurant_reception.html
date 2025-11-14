@@ -193,6 +193,26 @@
             color: var(--primary-dark);
         }
 
+        .customer-note-section {
+            padding: 20px 0;
+            margin: 20px 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .note-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+        }
+
+        .note-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #566573;
+        }
+
         .print-button-container {
             text-align: right;
             margin-top: 40px;
@@ -526,15 +546,16 @@
                         <td class="label">Subtotal</td>
                         <td class="amount">$60.00</td>
                     </tr>
-                    <tr>
-                        <td class="label">Sales Tax (8.25%)</td>
-                        <td class="amount">$4.95</td>
-                    </tr>
                     <tr class="grand-total">
                         <td class="label">TOTAL</td>
                         <td class="amount">$64.95</td>
                     </tr>
                 </table>
+            </div>
+
+            <div class="customer-note-section">
+                <div class="note-label">Note:</div>
+                <div class="note-content">Special request: No onions, extra sauce on the side</div>
             </div>
 
             <div class="print-button-container">
