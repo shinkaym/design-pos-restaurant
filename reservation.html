@@ -225,7 +225,10 @@
                     </div>
                     <div class="card-body">
                         <h3 class="customer-name">${reservation.guest}</h3>
-                        <p class="order-items">${reservation.guests} ${reservation.guests === 1 ? 'guest' : 'guests'} • Table ${reservation.table}</p>
+                        <div class="order-info">
+                            <span class="guest-badge"><i class="fas fa-users"></i> ${reservation.guests} ${reservation.guests === 1 ? 'guest' : 'guests'}</span>
+                            <span class="table-badge"><i class="fas fa-chair"></i> Table ${reservation.table}</span>
+                        </div>
                         <div class="card-note-section">
                             <label>Note:</label>
                             <div class="note-display" data-index="${originalIndex}">${reservation.note || 'No notes'}</div>
@@ -269,7 +272,10 @@
                     </div>
                     <div class="card-body">
                         <h3 class="customer-name">${reservation.guest}</h3>
-                        <p class="order-items">${reservation.guests} ${reservation.guests === 1 ? 'guest' : 'guests'} • Table ${reservation.table}</p>
+                        <div class="order-info">
+                            <span class="guest-badge"><i class="fas fa-users"></i> ${reservation.guests} ${reservation.guests === 1 ? 'guest' : 'guests'}</span>
+                            <span class="table-badge"><i class="fas fa-chair"></i> Table ${reservation.table}</span>
+                        </div>
                         <div class="card-note-section">
                             <label>Note:</label>
                             <div class="note-display">${reservation.note || 'No notes'}</div>

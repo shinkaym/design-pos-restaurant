@@ -943,6 +943,54 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     flex: 1;
 }
 
+.order-info {
+    margin: 8px 0;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 0.75em;
+    color: #666;
+}
+
+.order-info i {
+    color: var(--primary-color);
+    font-size: 0.9em;
+    opacity: 0.8;
+    min-width: 14px;
+    text-align: center;
+}
+
+.guest-badge,
+.table-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: linear-gradient(135deg, rgba(128, 0, 32, 0.08), rgba(255, 215, 0, 0.05));
+    padding: 4px 8px;
+    border-radius: 12px;
+    border: 1px solid rgba(128, 0, 32, 0.15);
+    font-size: 0.75em;
+    color: #555;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.guest-badge i,
+.table-badge i {
+    font-size: 0.85em;
+}
+
+.guest-badge {
+    border-color: rgba(255, 165, 0, 0.2);
+    background: linear-gradient(135deg, rgba(255, 165, 0, 0.05), rgba(255, 215, 0, 0.03));
+}
+
+.table-badge {
+    border-color: rgba(100, 150, 180, 0.2);
+    background: linear-gradient(135deg, rgba(100, 150, 180, 0.05), rgba(100, 150, 180, 0.03));
+}
+
 .card-footer {
     display: flex;
     justify-content: space-between;
