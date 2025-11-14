@@ -22,6 +22,7 @@ body {
     background-attachment: fixed;
     color: var(--text-color);
     line-height: 1.6;
+    overflow-x: hidden;
 }
 
 .container {
@@ -32,6 +33,8 @@ body {
     padding: 30px;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
+    box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 h1, h2, h3 {

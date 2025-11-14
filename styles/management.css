@@ -7,6 +7,8 @@
     padding: 20px;
     border-radius: 12px;
     border: 1px solid #e0e0e0;
+    overflow: hidden;
+    box-sizing: border-box;
 }
 
 /* Responsive Design - Large Screens */
@@ -95,6 +97,8 @@
 
     .main-layout {
         gap: 20px;
+        overflow: hidden;
+        box-sizing: border-box;
     }
 
     .orders-section,
@@ -120,10 +124,14 @@
 
     .cards-grid {
         gap: 10px;
+        overflow: hidden;
+        box-sizing: border-box;
     }
 
     .order-card {
         padding: 8px;
+        min-width: 0;
+        overflow: hidden;
     }
 
     .order-id {
